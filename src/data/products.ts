@@ -1,6 +1,8 @@
 import type { Product, Category, JournalPost } from './types';
 
-const img = (n: string) => `/img/${n}.svg`;
+import { asset } from '@/lib/image';
+
+const img = (n: string) => asset(`/img/${n}.svg`);
 
 /* Four garment categories. "New Arrivals" and "Custom Orders" also sit in the
    nav, but neither is a category a product belongs to — New Arrivals is a view

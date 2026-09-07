@@ -7,7 +7,7 @@ import { Rating } from '@/components/primitives/Rating';
 const QUOTES = [
   { text: 'The sherwani took ninety-one days and arrived with a note listing everyone who touched it. I have worn it twice and it still feels like the first time.', name: 'Arjun M.', place: 'Bengaluru', to: '/shop/sherwani', label: 'Shop sherwani' },
   { text: 'I sent my measurements at midnight from Toronto with no expectations. The fit is better than anything I have had made in person.', name: 'Rohan R.', place: 'Toronto', to: '/atelier#measure', label: 'Made to measure' },
-  { text: 'My father wore his bandhgala to two weddings and a funeral this year and it looks exactly as it did in March.', name: 'Karan S.', place: 'London', to: '/shop/bandhgala', label: 'Shop bandhgala' },
+  { text: 'My father wore his waistcoat to two weddings and a funeral this year and it looks exactly as it did in March.', name: 'Karan S.', place: 'London', to: '/shop/waistcoat', label: 'Shop waistcoat' },
 ];
 
 export function Testimonials() {

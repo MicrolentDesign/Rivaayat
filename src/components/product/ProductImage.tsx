@@ -1,5 +1,5 @@
 import type { ProductShot } from '@/data/productImages';
-import { srcSet, fallbackSrc } from '@/lib/image';
+import { srcSet, fallbackSrc, asset } from '@/lib/image';
 import { cx } from '@/lib/utils';
 
 /* One product shot. Photographs come off the pipeline as a responsive WebP
@@ -19,7 +19,7 @@ export function ProductImage({ shot, alt, sizes, className, eager }: {
     decoding: 'async' as const,
   };
 
-  if (shot.kind === 'placeholder') return <img src={shot.src} {...common} />;
+  if (shot.kind === 'placeholder') return <img src={asset(shot.src)} {...common} />;
 
   return (
     <picture className={cx('product-shot-wrap', className)}>

@@ -5,6 +5,7 @@ import { Manifesto } from '@/components/sections/Manifesto';
 import { Button } from '@/components/primitives/Button';
 import { SectionHead } from '@/components/primitives/SectionHead';
 import { Reveal } from '@/components/primitives/Reveal';
+import { asset } from '@/lib/image';
 
 const STEPS = [
   ['01', 'The measurements', 'Six numbers for a kurta, taken here or sent from wherever you are. There is a video that walks you through it and a person who will get on a call if it does not.'],
@@ -18,7 +19,7 @@ export function AtelierPage() {
     <>
       <header style={{ position: 'relative' }}>
         <div className="media scrim" style={{ aspectRatio: '16 / 7', minHeight: '22rem' }}>
-          <img src="/img/atelier.svg" alt="" />
+          <img src={asset('/img/atelier.svg')} alt="" />
         </div>
         <div className="overlay-content overlay-bl">
           <div className="container" style={{ paddingInline: 0 }}>

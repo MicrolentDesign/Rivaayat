@@ -9,6 +9,12 @@ import { WishlistPage } from '@/pages/WishlistPage';
 import { CustomOrdersPage } from '@/pages/CustomOrdersPage';
 import { CustomFitPage } from '@/pages/CustomFitPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
+import { PlaceholderPage, PLANNED_PATHS } from '@/pages/PlaceholderPage';
+
+/* React Router needs the deploy sub-path too, or every in-app link resolves
+   against the domain root. Vite's BASE_URL carries a trailing slash and the
+   router wants it without one. */
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/';
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +29,10 @@ export const router = createBrowserRouter([
       { path: 'wishlist', element: <WishlistPage /> },
       { path: 'custom', element: <CustomOrdersPage /> },
       { path: 'custom/:slug', element: <CustomFitPage /> },
+      /* Settled information architecture, unwritten content. Listed
+         explicitly so a genuine typo still reaches the 404. */
+      ...PLANNED_PATHS.map((path) => ({ path: path.slice(1), element: <PlaceholderPage /> })),
       { path: '*', element: <NotFoundPage /> },
     ],
   },
-]);
+], { basename });

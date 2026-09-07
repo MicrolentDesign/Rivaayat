@@ -5,7 +5,7 @@ import { SectionHead } from '@/components/primitives/SectionHead';
 import { Reveal } from '@/components/primitives/Reveal';
 import { Img } from '@/components/primitives/Img';
 import { categoryArt } from '@/data/categoryImages';
-import { SIZES } from '@/lib/image';
+import { SIZES, asset } from '@/lib/image';
 import { Marquee } from '@/components/sections/Marquee';
 import { IconRuler, IconNeedle, IconReturn, IconTruck } from '@/components/primitives/Icon';
 
@@ -21,7 +21,7 @@ export function CustomOrdersPage() {
     <>
       <header style={{ position: 'relative' }}>
         <div className="media scrim" style={{ aspectRatio: '16 / 7', minHeight: '20rem' }}>
-          <img src="/img/cat-custom.svg" alt="" />
+          <img src={asset('/img/cat-custom.svg')} alt="" />
         </div>
         <div className="overlay-content overlay-bl">
           <div className="container" style={{ paddingInline: 0 }}>

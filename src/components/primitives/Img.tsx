@@ -1,4 +1,4 @@
-import { srcSet, fallbackSrc, type ImageProfile } from '@/lib/image';
+import { srcSet, fallbackSrc, asset, type ImageProfile } from '@/lib/image';
 import { cx } from '@/lib/utils';
 
 /* One image, responsive when it came off the pipeline and plain when it did
@@ -19,7 +19,7 @@ export function Img({ base, src, profile = 'default', sizes, alt, className, eag
     decoding: 'async' as const,
   };
 
-  if (!base) return <img src={src} className={className} {...img} />;
+  if (!base) return <img src={src ? asset(src) : undefined} className={className} {...img} />;
 
   return (
     <picture className={cx('img-wrap', className)}>

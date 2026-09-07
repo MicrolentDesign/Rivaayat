@@ -65,7 +65,13 @@ export function Hero() {
             <div className="container" style={{ paddingInline: 0 }}>
               <div className="stack-md">
                 <p className="eyebrow">{s.eyebrow}</p>
-                <h1 className="t-hero hero__title">{s.title}</h1>
+                {/* Only the visible slide is the document's h1. Three slides
+                    each carrying one gave the homepage three h1 elements —
+                    aria-hidden keeps screen readers out of the inactive ones,
+                    but a heading outline and a crawler still see all three. */}
+                {n === i
+                  ? <h1 className="t-hero hero__title">{s.title}</h1>
+                  : <p className="t-hero hero__title" aria-hidden="true">{s.title}</p>}
                 <div><ButtonLink to={s.to} variant="overlay" tabIndex={n === i ? 0 : -1}>{s.cta}</ButtonLink></div>
               </div>
             </div>

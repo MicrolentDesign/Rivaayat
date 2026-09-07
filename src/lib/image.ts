@@ -9,6 +9,17 @@
 
 import { IMAGE_WIDTHS } from '@/data/image-manifest';
 
+/* Deployment base. GitHub Pages serves this project under /Rivaayat/, so every
+   absolute path out of public/ needs that prefix or it resolves against the
+   domain root and 404s. Vite sets BASE_URL to '/' in dev and '/Rivaayat/' in a
+   production build, so the same code is correct in both.
+
+   Applied here — the single point where a stored path becomes a URL — rather
+   than baked into the paths themselves, which keeps the manifest, hero data
+   and image roles portable if the deploy target ever changes. */
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+export const asset = (p: string) => (p.startsWith('/') ? BASE + p : p);
+
 export type ImageProfile = 'hero' | 'product' | 'category' | 'journal' | 'sections' | 'default';
 
 const FALLBACK_WIDTHS: Record<ImageProfile, number[]> = {
@@ -23,14 +34,14 @@ const FALLBACK_WIDTHS: Record<ImageProfile, number[]> = {
 /** `/hero/H3` → `/hero/H3-640.webp 640w, /hero/H3-960.webp 960w, …` */
 export function srcSet(base: string, profile: ImageProfile = 'default') {
   const widths = IMAGE_WIDTHS[base] ?? FALLBACK_WIDTHS[profile];
-  return widths.map((w) => `${base}-${w}.webp ${w}w`).join(', ');
+  return widths.map((w) => `${asset(base)}-${w}.webp ${w}w`).join(', ');
 }
 
 /** True once the pipeline has actually produced this image. */
 export const hasImage = (base: string) => base in IMAGE_WIDTHS;
 
 /** The JPEG the pipeline leaves beside the WebP set, for browsers without it. */
-export const fallbackSrc = (base: string) => `${base}.jpg`;
+export const fallbackSrc = (base: string) => asset(`${base}.jpg`);
 
 /* `sizes` tells the browser how wide the image will render *before* layout, so
    it can pick a width off the srcset. Getting it wrong is the most common way a

@@ -4,12 +4,43 @@ An ecommerce storefront for a **menswear** couture house — sherwanis,
 bandhgalas, kurta sets and accessories — built on a design system derived from
 the two client references.
 
+**Live:** https://microlentdesign.github.io/Rivaayat/
+
 ```bash
 npm install
 npm run dev      # http://localhost:5180
-npm run build    # typecheck + production bundle to dist/
+npm run build    # images → typecheck → bundle → SPA fallback, into dist/
+npm run preview  # serve the built output at /Rivaayat/, as Pages does
+npm run images   # regenerate WebP from the originals in media/
 npm run art      # regenerate the placeholder artwork in public/img/
 ```
+
+## Deployment
+
+Pushing to `main` builds and publishes to GitHub Pages via
+`.github/workflows/deploy.yml`. The repo needs **Settings → Pages → Source =
+GitHub Actions** set once; after that every push deploys.
+
+Three things make a project page work that a root deploy would not need:
+
+- **`base: '/Rivaayat/'`** in `vite.config.ts`, applied to `build` and
+  `preview` only, so `npm run dev` stays at the root locally. It has to apply
+  to preview as well — without it, preview mounts at `/` and answers requests
+  for `/Rivaayat/assets/*.js` with the SPA fallback HTML, so the bundle never
+  evaluates and the page renders blank, looking exactly like a broken build.
+- **`asset()`** in `src/lib/image.ts` prefixes every path out of `public/`.
+  It is applied at the single point where a stored path becomes a URL, so the
+  image manifest, hero data and image roles stay portable. Moving to a root
+  domain means setting `BASE` to `'/'` and dropping the router `basename` —
+  nothing else references it.
+- **`dist/404.html`**, a copy of `index.html` written by
+  `scripts/spa-fallback.mjs`. Pages serves static files only, so a deep link
+  like `/Rivaayat/shop/kurta` has no file behind it; Pages serves `404.html`
+  for unmatched paths, which boots the SPA and lets the router read the URL it
+  was actually asked for. Without it the site works only from its front door.
+
+The workflow regenerates every WebP from `media/` on the runner, which is why
+those originals are committed while the derivatives under `public/` are not.
 
 React 19 · Vite 7 · TypeScript · Tailwind v4 · React Router 7 · Zustand.
 
