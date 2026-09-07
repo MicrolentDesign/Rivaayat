@@ -38,7 +38,8 @@ export function HomePage() {
       />
 
       <EditorialSplit
-        image="/img/editorial-01.svg"
+        base="/Sections/HOMES1"
+        alt="A hand-embroidered jacket photographed close, the stitching visible"
         eyebrow="Made to last longer than you"
         title="Meet the piece that outlives the occasion."
         body={[

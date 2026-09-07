@@ -261,7 +261,7 @@
   .media { position: relative; overflow: hidden; background: var(--color-bone); }
   .media img { width: 100%; height: 100%; object-fit: cover; }
   /* <picture> is an inline wrapper by default and would not fill .media */
-  .media picture, .media .product-shot-wrap { display: block; width: 100%; height: 100%; }
+  .media picture, .media .product-shot-wrap, .media .img-wrap { display: block; width: 100%; height: 100%; }
   .media-product   { aspect-ratio: var(--ratio-product); }
   .media-portrait  { aspect-ratio: var(--ratio-portrait); }
   .media-editorial { aspect-ratio: var(--ratio-editorial); }

@@ -49,7 +49,18 @@ const PROFILES = {
      PDP main image. Product photography wants to be shot portrait. */
   product: { widths: [360, 480, 600, 702, 900, 1200], quality: 82, fallbackWidth: 702,
              crop: { ratio: 3 / 4 } },
-  default: { widths: [640, 1024, 1600],            quality: 80, fallbackWidth: 1200 },
+  /* Category tiles render 4:5 portrait with an overlay title, so crop to that
+     and let the attention strategy keep the garment. Drop files in
+     media/category/ named for the slug: sherwani.png, shalwar-kameez.png,
+     kurta.png, waistcoat.png. */
+  category: { widths: [480, 720, 1000, 1280],     quality: 82, fallbackWidth: 1000,
+              crop: { ratio: 4 / 5 } },
+
+  /* Editorial band images. They render around 50vw inside a 4:3 or 4:5 box,
+     so `cover` in CSS handles the shape and the pipeline leaves the framing
+     alone — an automatic crop would fight whatever the photographer intended. */
+  sections: { widths: [640, 960, 1280, 1536],     quality: 80, fallbackWidth: 1280 },
+  default:  { widths: [640, 1024, 1600],          quality: 80, fallbackWidth: 1200 },
 };
 
 const RASTER = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.tif', '.tiff']);
@@ -88,7 +99,10 @@ async function run() {
     const rel = path.relative(SRC, file);
     const dir = path.dirname(rel);
     const name = path.basename(rel, path.extname(rel));
-    const profile = PROFILES[dir.split(path.sep)[0]] ?? PROFILES.default;
+    /* Folder name picks the profile, case-insensitively — "Sections" and
+       "sections" should not behave differently. */
+    const folder = dir.split(path.sep)[0].toLowerCase();
+    const profile = PROFILES[folder] ?? PROFILES.default;
     const outDir = path.join(OUT, dir);
     await mkdir(outDir, { recursive: true });
 
@@ -197,6 +211,16 @@ async function run() {
   }
   for (const list of Object.values(byCategory)) list.sort(natural);
 
+  /* Category tiles: media/category/<slug>.<ext> */
+  const categoryTiles = {};
+  for (const key of Object.keys(manifest)) {
+    if (!key.startsWith('category/')) continue;
+    categoryTiles[key.slice('category/'.length).toLowerCase()] = `/${key}`;
+  }
+  const categoryLines = Object.entries(categoryTiles)
+    .map(([slug, base]) => `  '${slug}': '${base}',`)
+    .join('\n');
+
   const productLines = Object.entries(byCategory)
     .map(([cat, names]) => `  '${cat}': [${names.map((n) => `'/product/${n}'`).join(', ')}],`)
     .join('\n');
@@ -212,7 +236,10 @@ async function run() {
     + `/* Product photography grouped by category, from the filename prefix:\n`
     + `   S* sherwani  ·  K* kurta  ·  SK* shalwar kameez  ·  WC* waistcoat\n`
     + `   Sorted naturally, so S2 comes before S10. */\n`
-    + `export const PRODUCT_IMAGES: Record<string, string[]> = {\n${productLines}\n};\n`,
+    + `export const PRODUCT_IMAGES: Record<string, string[]> = {\n${productLines}\n};\n\n`
+    + `/* Category tile art, from media/category/<slug>.<ext>. Optional — a\n`
+    + `   category without one falls back to a product photograph. */\n`
+    + `export const CATEGORY_IMAGES: Record<string, string> = {\n${categoryLines}\n};\n`,
   );
 
   if (Object.keys(byCategory).length) {

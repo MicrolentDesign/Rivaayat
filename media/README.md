@@ -59,11 +59,16 @@ entirely.
 
 ## Folders set the profile
 
-| Folder | Widths | Quality | For |
+| Folder | Widths | Crop | For |
 |---|---|---|---|
-| `hero/` | 640 – 2560 | 78 | full-bleed, so it needs the big end |
-| `product/` | 480 – 1440 | 82 | sits in a grid column, never full-bleed |
-| anything else | 640 – 1600 | 80 | editorial, journal, tiles |
+| `hero/` | 640 – 2560 | none, plus a 4:5 phone crop | full-bleed, needs the big end |
+| `product/` | 360 – 1200 | **3:4** | cards, PDP, quick view |
+| `category/` | 480 – 1280 | **4:5** | garment tiles — see its own README |
+| `Sections/` | 640 – 1536 | none | editorial bands |
+| anything else | 640 – 1600 | none | journal, misc |
+
+Folder matching is case-insensitive, so `Sections/` and `sections/` behave the
+same.
 
 Widths wider than the original are skipped — upscaling adds bytes and no
 detail.

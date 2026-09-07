@@ -3,6 +3,9 @@ import { categories } from '@/data/products';
 import { ButtonLink } from '@/components/primitives/Button';
 import { SectionHead } from '@/components/primitives/SectionHead';
 import { Reveal } from '@/components/primitives/Reveal';
+import { Img } from '@/components/primitives/Img';
+import { categoryArt } from '@/data/categoryImages';
+import { SIZES } from '@/lib/image';
 import { Marquee } from '@/components/sections/Marquee';
 import { IconRuler, IconNeedle, IconReturn, IconTruck } from '@/components/primitives/Icon';
 
@@ -67,7 +70,9 @@ export function CustomOrdersPage() {
               <Reveal key={c.slug} delay={(i % 4) * 90}>
                 <Link to={c.slug === 'kurta' ? '/custom/zafar-kurta-set' : `/shop/${c.slug}`}
                       className="group" style={{ display: 'block', position: 'relative' }}>
-                  <div className="media media-portrait media-zoom scrim"><img src={c.image} alt="" loading="lazy" /></div>
+                  <div className="media media-portrait media-zoom scrim">
+                    <Img {...categoryArt(c.slug)} sizes={SIZES.third} alt="" />
+                  </div>
                   <div className="overlay-content overlay-bl" style={{ padding: '1.5rem' }}>
                     <h3 className="t-h3" style={{ color: 'var(--color-canvas)' }}>{c.name}</h3>
                     <p className="eyebrow" style={{ marginTop: '0.4rem' }}>

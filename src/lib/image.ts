@@ -9,11 +9,13 @@
 
 import { IMAGE_WIDTHS } from '@/data/image-manifest';
 
-export type ImageProfile = 'hero' | 'product' | 'default';
+export type ImageProfile = 'hero' | 'product' | 'category' | 'sections' | 'default';
 
 const FALLBACK_WIDTHS: Record<ImageProfile, number[]> = {
   hero: [640, 960, 1440, 1920, 2560],
   product: [480, 720, 1080, 1440],
+  category: [480, 720, 1000, 1280],
+  sections: [640, 960, 1280, 1536],
   default: [640, 1024, 1600],
 };
 

@@ -6,6 +6,9 @@ import { useCart, cartCount } from '@/store/cart';
 import { useScrolled } from '@/lib/useScrolled';
 import { useBodyLock } from '@/lib/useBodyLock';
 import { categories } from '@/data/products';
+import { Img } from '@/components/primitives/Img';
+import { categoryArt } from '@/data/categoryImages';
+import { SIZES } from '@/lib/image';
 import { primaryNav as NAV, secondaryNav as NAV_RIGHT, allNav } from '@/data/navigation';
 import { cx } from '@/lib/utils';
 
@@ -83,7 +86,9 @@ function MegaMenu({ onClose }: { onClose: () => void }) {
         <div className="grid-tiles-4">
           {categories.slice(0, 4).map((c) => (
             <Link key={c.slug} to={`/shop/${c.slug}`} className="group stack-sm" onClick={onClose}>
-              <div className="media media-portrait media-zoom"><img src={c.image} alt="" /></div>
+              <div className="media media-portrait media-zoom">
+                <Img {...categoryArt(c.slug)} sizes={SIZES.third} alt="" />
+              </div>
               <div>
                 <h3 className="t-h4">{c.name}</h3>
                 <p className="t-meta">{c.tagline}</p>

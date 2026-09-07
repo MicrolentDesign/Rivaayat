@@ -26,7 +26,16 @@ const MAX_SHOTS = 2;
 const assigned = new Map<string, string[]>();
 
 for (const [category, pool] of Object.entries(PRODUCT_IMAGES)) {
-  const inCategory = products.filter((p) => p.category === category);
+  /* Labelled pieces get photographed first. The homepage rails are built from
+     the `new` and `bestseller` labels, so a category with fewer photos than
+     products would otherwise leave a placeholder in the shop window while the
+     real photography sat on a piece nobody lands on. Catalogue order breaks
+     ties, so the result is still deterministic. */
+  const inCategory = products
+    .filter((p) => p.category === category)
+    .map((p, i) => ({ p, i, promoted: p.labels.length > 0 ? 0 : 1 }))
+    .sort((a, b) => a.promoted - b.promoted || a.i - b.i)
+    .map(({ p }) => p);
   if (inCategory.length === 0) continue;
 
   pool.forEach((base, i) => {

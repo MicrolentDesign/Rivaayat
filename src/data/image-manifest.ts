@@ -2,6 +2,7 @@
    Maps each image base path to the widths that exist on disk. */
 
 export const IMAGE_WIDTHS: Record<string, number[]> = {
+  '/Sections/HOMES1': [640, 960, 1280, 1536],
   '/hero/H1': [640, 960, 1440],
   '/hero/H2': [640, 960, 1440],
   '/hero/H3': [640, 960, 1440],
@@ -24,4 +25,10 @@ export const PRODUCT_IMAGES: Record<string, string[]> = {
   'sherwani': ['/product/S1', '/product/S2'],
   'shalwar-kameez': ['/product/SK1', '/product/SK2'],
   'waistcoat': ['/product/WC1', '/product/WC2', '/product/WC3'],
+};
+
+/* Category tile art, from media/category/<slug>.<ext>. Optional — a
+   category without one falls back to a product photograph. */
+export const CATEGORY_IMAGES: Record<string, string> = {
+
 };

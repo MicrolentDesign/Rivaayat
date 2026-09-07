@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import { categories } from '@/data/products';
 import { SectionHead } from '@/components/primitives/SectionHead';
 import { Reveal } from '@/components/primitives/Reveal';
+import { Img } from '@/components/primitives/Img';
+import { categoryArt } from '@/data/categoryImages';
+import { SIZES } from '@/lib/image';
 
 /* [EOI] "Shop the look" tiles + [CHA] overlay-titled category blocks. */
 export function CategoryTiles({ limit = 4 }: { limit?: number }) {
@@ -13,7 +16,9 @@ export function CategoryTiles({ limit = 4 }: { limit?: number }) {
           {categories.slice(0, limit).map((c, i) => (
             <Reveal key={c.slug} delay={(i % 4) * 90}>
               <Link to={`/shop/${c.slug}`} className="group" style={{ display: 'block', position: 'relative' }}>
-                <div className="media media-portrait media-zoom scrim"><img src={c.image} alt="" loading="lazy" /></div>
+                <div className="media media-portrait media-zoom scrim">
+                  <Img {...categoryArt(c.slug)} sizes={SIZES.third} alt="" />
+                </div>
                 <div className="overlay-content overlay-bl" style={{ padding: '1.5rem' }}>
                   <p className="eyebrow" style={{ marginBottom: '0.4rem' }}>{c.count} pieces</p>
                   <h3 className="t-h2" style={{ color: 'var(--color-canvas)' }}>{c.name}</h3>
