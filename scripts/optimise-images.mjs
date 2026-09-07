@@ -38,7 +38,17 @@ const PROFILES = {
      human chose always wins. */
   hero:    { widths: [640, 960, 1440, 1920, 2560], quality: 78, fallbackWidth: 1600,
              portrait: { ratio: 4 / 5, widths: [480, 720, 960, 1200] } },
-  product: { widths: [480, 720, 1080, 1440],       quality: 82, fallbackWidth: 1080 },
+  /* Product cards, the PDP and quick view all render 3:4, so that is the
+     shape the pipeline should hand them — cropping in the browser would
+     download pixels only to throw them away. `crop` makes the main widths
+     3:4 instead of the source ratio, attention-positioned like the hero's
+     phone crop.
+
+     Note what this costs: a 1678x937 landscape master can only yield a
+     3:4 crop 702px wide (937 x 0.75). Plenty for a card at 2x, tight for a
+     PDP main image. Product photography wants to be shot portrait. */
+  product: { widths: [360, 480, 600, 702, 900, 1200], quality: 82, fallbackWidth: 702,
+             crop: { ratio: 3 / 4 } },
   default: { widths: [640, 1024, 1600],            quality: 80, fallbackWidth: 1200 },
 };
 
@@ -86,9 +96,13 @@ async function run() {
     const srcWidth = meta.width ?? 0;
     srcBytes += (await stat(file)).size;
 
-    // never upscale; keep one width at or above the source so nothing is lost
-    const widths = profile.widths.filter((w) => w <= srcWidth);
-    if (widths.length === 0) widths.push(srcWidth);
+    /* Never upscale. With a crop, the ceiling is what the crop can yield —
+       a 1678x937 master cropped to 3:4 tops out at 702px, not 1678. */
+    const maxWidth = profile.crop
+      ? Math.floor(Math.min(srcWidth, (meta.height ?? 0) * profile.crop.ratio))
+      : srcWidth;
+    const widths = profile.widths.filter((w) => w <= maxWidth);
+    if (widths.length === 0) widths.push(maxWidth);
 
     const entry = { widths: [], fallback: `/${path.join(dir, `${name}.jpg`)}`, width: srcWidth, height: meta.height ?? 0 };
 
@@ -96,10 +110,10 @@ async function run() {
       const dest = path.join(outDir, `${name}-${w}.webp`);
       entry.widths.push({ w, src: `/${path.join(dir, `${name}-${w}.webp`)}` });
       if (await newerThan(dest, file)) { skipped++; outBytes += (await stat(dest)).size; continue; }
-      await sharp(file)
-        .resize({ width: w, withoutEnlargement: true })
-        .webp({ quality: profile.quality, effort: 5 })
-        .toFile(dest);
+      const resize = profile.crop
+        ? { width: w, height: Math.round(w / profile.crop.ratio), fit: 'cover', position: sharp.strategy.attention }
+        : { width: w, withoutEnlargement: true };
+      await sharp(file).resize(resize).webp({ quality: profile.quality, effort: 5 }).toFile(dest);
       wrote++;
       outBytes += (await stat(dest)).size;
     }
@@ -107,10 +121,11 @@ async function run() {
     // one JPEG so a browser without WebP still gets a picture
     const fallback = path.join(outDir, `${name}.jpg`);
     if (!(await newerThan(fallback, file))) {
-      await sharp(file)
-        .resize({ width: Math.min(profile.fallbackWidth, srcWidth), withoutEnlargement: true })
-        .jpeg({ quality: 80, progressive: true, mozjpeg: true })
-        .toFile(fallback);
+      const fw = Math.min(profile.fallbackWidth, maxWidth);
+      const fResize = profile.crop
+        ? { width: fw, height: Math.round(fw / profile.crop.ratio), fit: 'cover', position: sharp.strategy.attention }
+        : { width: fw, withoutEnlargement: true };
+      await sharp(file).resize(fResize).jpeg({ quality: 80, progressive: true, mozjpeg: true }).toFile(fallback);
       wrote++;
     }
 
@@ -160,6 +175,32 @@ async function run() {
      2560 rung, and a retina desktop asking for it would 404 and take the whole
      <picture> down with it. Imported, not fetched — a runtime round trip
      before the hero can start loading would defeat the point. */
+  /* Product images are routed to a category by filename prefix. Longest
+     prefix wins, which is the whole reason this is ordered: SK1 must land in
+     shalwar-kameez, not sherwani, and both start with S. */
+  const PREFIXES = [
+    ['SK', 'shalwar-kameez'],
+    ['WC', 'waistcoat'],
+    ['K',  'kurta'],
+    ['S',  'sherwani'],
+  ];
+  /* Natural sort, so S10 follows S9 instead of S1. */
+  const natural = (a, b) => a.localeCompare(b, 'en', { numeric: true, sensitivity: 'base' });
+
+  const byCategory = {};
+  for (const key of Object.keys(manifest)) {
+    if (!key.startsWith('product/')) continue;
+    const name = key.slice('product/'.length);
+    const hit = PREFIXES.find(([p]) => name.toUpperCase().startsWith(p));
+    if (!hit) { console.warn(`  ! ${name} matches no category prefix (S / K / SK / WC) — skipped`); continue; }
+    (byCategory[hit[1]] ??= []).push(name);
+  }
+  for (const list of Object.values(byCategory)) list.sort(natural);
+
+  const productLines = Object.entries(byCategory)
+    .map(([cat, names]) => `  '${cat}': [${names.map((n) => `'/product/${n}'`).join(', ')}],`)
+    .join('\n');
+
   const lines = Object.entries(manifest)
     .map(([k, v]) => `  '/${k}': [${v.widths.map((w) => w.w).join(', ')}],`)
     .join('\n');
@@ -167,8 +208,17 @@ async function run() {
     path.join(ROOT, 'src', 'data', 'image-manifest.ts'),
     `/* GENERATED by scripts/optimise-images.mjs — do not edit.\n`
     + `   Maps each image base path to the widths that exist on disk. */\n\n`
-    + `export const IMAGE_WIDTHS: Record<string, number[]> = {\n${lines}\n};\n`,
+    + `export const IMAGE_WIDTHS: Record<string, number[]> = {\n${lines}\n};\n\n`
+    + `/* Product photography grouped by category, from the filename prefix:\n`
+    + `   S* sherwani  ·  K* kurta  ·  SK* shalwar kameez  ·  WC* waistcoat\n`
+    + `   Sorted naturally, so S2 comes before S10. */\n`
+    + `export const PRODUCT_IMAGES: Record<string, string[]> = {\n${productLines}\n};\n`,
   );
+
+  if (Object.keys(byCategory).length) {
+    console.log('\nProduct images by category:');
+    for (const [cat, names] of Object.entries(byCategory)) console.log(`  ${cat.padEnd(16)} ${names.join(', ')}`);
+  }
 
   console.log(`\n${wrote} written, ${skipped} already current.`);
   console.log(`Originals ${kb(srcBytes)} → generated ${kb(outBytes)} across all widths.`);

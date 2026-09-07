@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { getProduct, related } from '@/data/products';
+import { shotsFor } from '@/data/productImages';
+import { ProductImage } from '@/components/product/ProductImage';
+import { SIZES } from '@/lib/image';
 import { Price } from '@/components/primitives/Price';
 import { Rating } from '@/components/primitives/Rating';
 import { SwatchRow } from '@/components/primitives/Swatch';
@@ -9,7 +12,7 @@ import { ProductGrid } from '@/components/product/ProductGrid';
 import { SectionHead } from '@/components/primitives/SectionHead';
 import { IconHeart, IconTruck, IconReturn, IconRuler, IconNeedle, IconDown } from '@/components/primitives/Icon';
 import { useCart } from '@/store/cart';
-import { leadTimeCopy, cx } from '@/lib/utils';
+import { leadTimeCopy } from '@/lib/utils';
 
 export function ProductPage() {
   const { slug = '' } = useParams();
@@ -25,7 +28,10 @@ export function ProductPage() {
 
   if (!product) return <Navigate to="/shop/all" replace />;
   const wished = wishlist.includes(product.id);
-  const gallery = [...product.images, ...product.images];  // stand-in for a full shot list
+  /* However many shots exist for this piece — one photograph, two, or the
+     placeholder pair. No padding out with duplicates: a repeated thumbnail
+     reads as a broken gallery. */
+  const gallery = shotsFor(product);
 
   return (
     <>
@@ -42,15 +48,19 @@ export function ProductPage() {
           {/* gallery — sticky stacked column on desktop, swipe rail on mobile */}
           <div className="pdp__gallery">
             <div className="pdp__thumbs show-md">
-              {gallery.map((src, i) => (
-                <button key={i} onClick={() => setActive(i)} aria-label={`View image ${i + 1}`}
-                        className={cx('media')} data-selected={i === active}
+              {gallery.map((shot, i) => (
+                <button key={i} onClick={() => setActive(i)} aria-label={`View image ${i + 1} of ${gallery.length}`}
+                        aria-current={i === active}
+                        className="media" data-selected={i === active}
                         style={{ aspectRatio: 'var(--ratio-product)', border: i === active ? '1px solid var(--color-ink)' : '1px solid transparent' }}>
-                  <img src={src} alt="" />
+                  <ProductImage shot={shot} alt="" sizes="6rem" />
                 </button>
               ))}
             </div>
-            <div className="pdp__main media media-product"><img src={gallery[active]} alt={product.title} /></div>
+            <div className="pdp__main media media-product">
+              <ProductImage shot={gallery[Math.min(active, gallery.length - 1)]}
+                            alt={product.title} sizes={SIZES.half} eager />
+            </div>
           </div>
 
           {/* buy column */}

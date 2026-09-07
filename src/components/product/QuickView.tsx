@@ -6,6 +6,8 @@ import { Rating } from '@/components/primitives/Rating';
 import { SwatchRow } from '@/components/primitives/Swatch';
 import { Button } from '@/components/primitives/Button';
 import { IconClose } from '@/components/primitives/Icon';
+import { ProductImage } from './ProductImage';
+import { shotsFor } from '@/data/productImages';
 import { useCart } from '@/store/cart';
 import { useBodyLock } from '@/lib/useBodyLock';
 import { leadTimeCopy } from '@/lib/utils';
@@ -37,7 +39,9 @@ export function QuickView({ product, onClose }: { product: Product | null; onClo
           <button className="icon-btn" onClick={onClose} aria-label="Close quick view"><IconClose /></button>
         </div>
         <div className="drawer__body stack-md">
-          <div className="media media-product"><img src={product.images[0]} alt={product.title} /></div>
+          <div className="media media-product">
+            <ProductImage shot={shotsFor(product)[0]} alt={product.title} sizes="25rem" eager />
+          </div>
           <div className="stack-sm">
             <h2 className="t-h3">{product.title}</h2>
             <p className="t-sm" style={{ color: 'var(--color-ink-soft)' }}>{product.subtitle}</p>

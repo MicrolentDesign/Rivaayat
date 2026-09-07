@@ -5,4 +5,19 @@ export const IMAGE_WIDTHS: Record<string, number[]> = {
   '/hero/H1': [640, 960, 1440],
   '/hero/H2': [640, 960, 1440],
   '/hero/H3': [640, 960, 1440],
+  '/product/K1': [360, 480, 600, 702],
+  '/product/S1': [360, 480, 600, 702],
+  '/product/SK1': [360, 480, 600, 702],
+  '/product/WC1': [360, 480, 600, 702],
+  '/product/WC2': [360, 480, 600, 702],
+};
+
+/* Product photography grouped by category, from the filename prefix:
+   S* sherwani  ·  K* kurta  ·  SK* shalwar kameez  ·  WC* waistcoat
+   Sorted naturally, so S2 comes before S10. */
+export const PRODUCT_IMAGES: Record<string, string[]> = {
+  'kurta': ['/product/K1'],
+  'sherwani': ['/product/S1'],
+  'shalwar-kameez': ['/product/SK1'],
+  'waistcoat': ['/product/WC1', '/product/WC2'],
 };

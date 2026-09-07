@@ -17,6 +17,46 @@ npm run images
 It also runs automatically before every `npm run build`, and it is incremental —
 an output newer than its source is left alone, so re-running costs nothing.
 
+## Product photography is routed by filename prefix
+
+Drop a shot in `media/product/` and its **prefix** decides the category:
+
+| Prefix | Category |
+|---|---|
+| `S…` | Sherwani |
+| `SK…` | Shalwar Kameez |
+| `K…` | Kurta |
+| `WC…` | Waistcoat |
+
+**Longest prefix wins**, which is the whole reason it is written that way:
+`SK1.png` is a shalwar kameez, not a sherwani, even though both start with `S`.
+
+Numbering is natural-sorted, so `S2` comes before `S10`.
+
+### How they are dealt out
+
+Shots go to the products in that category **in catalogue order, and no file is
+ever used twice**:
+
+- one photo, three products → the first product gets it, the other two keep
+  their generated placeholder
+- four photos, three products → each gets a main shot, then the first also
+  gets a hover shot (two per card is the maximum)
+
+Adding files and re-running `npm run images` is the whole update. Nothing in
+`src/` needs editing — `src/data/productImages.ts` reads the generated
+manifest.
+
+### Shoot product portrait
+
+Product cards, the PDP and quick view all render **3:4 portrait**, so the
+pipeline crops to 3:4 (attention-positioned). A landscape master survives that,
+but at a cost: a 1678 × 937 frame can only yield a 3:4 crop **702px wide**.
+Fine for a card at 2×, tight for a PDP main image on a retina screen.
+
+Portrait originals at 1200 × 1600 or larger avoid the crop and the ceiling
+entirely.
+
 ## Folders set the profile
 
 | Folder | Widths | Quality | For |

@@ -4,6 +4,9 @@ import { Price } from '@/components/primitives/Price';
 import { Rating } from '@/components/primitives/Rating';
 import { SwatchRow } from '@/components/primitives/Swatch';
 import { IconHeart } from '@/components/primitives/Icon';
+import { ProductImage } from './ProductImage';
+import { shotsFor } from '@/data/productImages';
+import { SIZES } from '@/lib/image';
 import { useCart } from '@/store/cart';
 import { cx, discountPct } from '@/lib/utils';
 
@@ -18,6 +21,7 @@ export function ProductCard({ product, onQuickView, showSwatches = true, classNa
   const toggleWish = useCart((s) => s.toggleWish);
   const wished = wishlist.includes(product.id);
   const off = discountPct(product.price, product.compareAt);
+  const shots = shotsFor(product);
 
   return (
     <article className={cx('product-card group', className)}>
@@ -27,8 +31,11 @@ export function ProductCard({ product, onQuickView, showSwatches = true, classNa
           anchor is invalid and breaks keyboard activation. */}
       <div className="product-card__frame">
         <Link to={`/product/${product.slug}`} className="product-card__media" aria-label={product.title}>
-          <img src={product.images[0]} alt={product.title} loading="lazy" width={900} height={1200} />
-          {product.images[1] && <img src={product.images[1]} alt="" aria-hidden="true" loading="lazy" width={900} height={1200} />}
+          {shots.map((shot, idx) => (
+            <ProductImage key={idx} shot={shot} sizes={SIZES.productGrid}
+                          alt={idx === 0 ? product.title : ''}
+                          className={cx('product-card__shot', idx === 1 && 'product-card__shot--alt')} />
+          ))}
         </Link>
 
         <div className="product-card__labels">
