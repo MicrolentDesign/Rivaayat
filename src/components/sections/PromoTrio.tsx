@@ -42,14 +42,14 @@ export function PromoTrio() {
       <div className="container">
         <div className="grid-cards">
           {CARDS.map((c, i) => (
-            <Reveal key={c.title} delay={i * 90}>
-              <Link to={c.to} className="group promo-card stack-md">
+            <Reveal key={c.title} delay={i * 90} className="card-cell">
+              <Link to={c.to} className="group promo-card">
                 <div className="media media-editorial media-zoom">
                   <Img base={c.base} src={c.src} profile="sections" sizes={SIZES.third} alt={c.alt} />
                 </div>
-                <div className="stack-xs promo-card" style={{ gap: 0 }}>
+                <div className="promo-card__text" style={{ paddingTop: '1.1rem' }}>
                   <h3 className="t-h3">{c.title}</h3>
-                  <p className="t-sm promo-card__body" style={{ color: 'var(--color-ink-soft)', marginTop: '0.3rem' }}>{c.body}</p>
+                  <p className="t-sm promo-card__body" style={{ color: 'var(--color-ink-soft)', marginTop: '0.35rem' }}>{c.body}</p>
                   <p className="eyebrow link-quiet promo-card__cta" style={{ color: 'var(--color-ink)' }}>{c.cta}</p>
                 </div>
               </Link>
