@@ -29,8 +29,8 @@ export function Header({ overHero = false }: { overHero?: boolean }) {
         <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', gap: '1rem', minHeight: '4.75rem' }}>
           {/* left nav */}
           <nav aria-label="Collections" className="cluster" style={{ gap: '1.35rem', flexWrap: 'nowrap' }}>
-            <button className="icon-btn hide-lg" onClick={() => setMenuOpen(true)} aria-label="Open menu"><IconMenu /></button>
-            <span className="show-lg cluster" style={{ gap: '1.35rem', flexWrap: 'nowrap' }}>
+            <button className="icon-btn hide-nav" onClick={() => setMenuOpen(true)} aria-label="Open menu"><IconMenu /></button>
+            <span className="show-nav cluster" style={{ gap: '1.35rem', flexWrap: 'nowrap' }}>
               {NAV.map((n) => (
                 <NavLink key={n.to} to={n.to} className="nav-link"
                          onMouseEnter={() => setMegaOpen(n.isCategory)}>
@@ -44,12 +44,12 @@ export function Header({ overHero = false }: { overHero?: boolean }) {
 
           {/* right */}
           <div className="cluster" style={{ justifyContent: 'flex-end', gap: '0.25rem' }}>
-            <span className="show-lg cluster" style={{ gap: '1.35rem', marginRight: '0.75rem', flexWrap: 'nowrap' }}>
+            <span className="show-nav cluster" style={{ gap: '1.35rem', marginRight: '0.75rem', flexWrap: 'nowrap' }}>
               {NAV_RIGHT.map((n) => <NavLink key={n.to} to={n.to} className="nav-link">{n.label}</NavLink>)}
             </span>
             <Link to="/shop/all" className="icon-btn" aria-label="Search"><IconSearch /></Link>
-            <Link to="/account" className="icon-btn show-lg" aria-label="Account"><IconUser /></Link>
-            <Link to="/wishlist" className="icon-btn show-lg" aria-label={`Wishlist, ${wishlist.length} saved`} style={{ position: 'relative' }}>
+            <Link to="/account" className="icon-btn show-nav" aria-label="Account"><IconUser /></Link>
+            <Link to="/wishlist" className="icon-btn show-nav" aria-label={`Wishlist, ${wishlist.length} saved`} style={{ position: 'relative' }}>
               <IconHeart />
               {wishlist.length > 0 && <Dot n={wishlist.length} />}
             </Link>

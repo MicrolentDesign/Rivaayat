@@ -741,6 +741,18 @@
     .show-lg { display: inline-flex; }
     .hide-lg { display: none; }
   }
+  /* The header has its own breakpoint. Five category links plus a centred
+     wordmark plus three secondary links plus four icons need ~1200px; between
+     1024 and 1199 they wrapped the header onto two rows, so the hamburger
+     holds until there is genuinely room. Kept separate from show-lg/hide-lg,
+     which the collection toolbar also uses at a different threshold. */
+  .show-nav { display: none; }
+  .hide-nav { display: inline-flex; }
+  @media (min-width: 1200px) {
+    .show-nav { display: inline-flex; }
+    .hide-nav { display: none; }
+  }
+
   .show-md { display: none; }
   .hide-md { display: block; }
   @media (min-width: 768px) {
