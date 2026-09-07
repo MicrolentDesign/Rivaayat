@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "art": "node scripts/generate-art.mjs"
+    "art": "node scripts/generate-art.mjs",
+    "images": "node scripts/optimise-images.mjs",
+    "prebuild": "node scripts/optimise-images.mjs"
   },
   "dependencies": {
     "react": "^19.2.0",
@@ -21,6 +23,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.2",
+    "sharp": "^0.35.4",
     "tailwindcss": "^4.1.13",
     "typescript": "~5.9.2",
     "vite": "^7.1.5"

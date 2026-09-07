@@ -1,60 +1,84 @@
 import { useEffect, useState } from 'react';
 import { ButtonLink } from '@/components/primitives/Button';
-import { cx } from '@/lib/utils';
+import { heroSlides } from '@/data/hero';
+import { srcSet, fallbackSrc, SIZES } from '@/lib/image';
 
-/* Hero slideshow — [CHA] eyebrow / ultra-light display line / uppercase CTA,
-   over full-bleed imagery with the [CHA] --image-overlay scrim.           */
-const SLIDES = [
-  { image: '/img/hero-01.svg', eyebrow: 'Mehtab · Autumn Winter 2026', title: 'Cloth that remembers whose hands made it.', cta: 'Enter the collection', to: '/shop/sherwani' },
-  { image: '/img/hero-02.svg', eyebrow: 'For the groom, by appointment', title: 'Ninety days. One sherwani. No shortcuts.', cta: 'Book a fitting', to: '/shop/sherwani' },
-  { image: '/img/hero-03.svg', eyebrow: 'The Archive', title: 'One of one, and never remade.', cta: 'See what remains', to: '/shop/archive' },
-];
+/* Hero slideshow — [CHA] eyebrow / light display line / uppercase CTA over
+   full-bleed imagery with the [CHA] --image-overlay scrim.
+
+   Art direction is the whole job here. The supplied frames are 16:9 with the
+   model right of centre and a lot of open landscape; a phone crops that to
+   roughly a third of its width, so `object-position: center` would show empty
+   sky and cut the model out of frame. Two mechanisms, in order of preference:
+
+     1. `imageMobile` — a purpose-made portrait crop, served under 768px via
+        <picture>. Always better, because a human chose what to keep.
+     2. `focal` — a per-slide object-position that pulls the crop window onto
+        the model. Costs no extra assets and is what runs until the crops
+        exist.
+
+   `onError` falls back to the generated placeholder rather than showing a
+   broken image, so the hero survives a missing or mistyped file. */
 
 export function Hero() {
   const [i, setI] = useState(0);
+
   useEffect(() => {
-    const t = setInterval(() => setI((n) => (n + 1) % SLIDES.length), 7000);
+    const t = setInterval(() => setI((n) => (n + 1) % heroSlides.length), 7000);
     return () => clearInterval(t);
   }, []);
 
   return (
-    <section aria-roledescription="carousel" aria-label="Featured collections"
-             style={{ position: 'relative', height: 'min(92svh, 52rem)', minHeight: '34rem', background: 'var(--color-bone)' }}>
-      {SLIDES.map((s, n) => (
-        <div key={s.image} aria-hidden={n !== i}
-             style={{
-               position: 'absolute', inset: 0, opacity: n === i ? 1 : 0,
-               transition: 'opacity 1100ms var(--ease-brand)', pointerEvents: n === i ? 'auto' : 'none',
-             }}>
-          <div className="media scrim" style={{ position: 'absolute', inset: 0 }}>
-            <img src={s.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                 loading={n === 0 ? 'eager' : 'lazy'} fetchPriority={n === 0 ? 'high' : 'low'} />
+    <section className="hero" aria-roledescription="carousel" aria-label="Featured collections">
+      {heroSlides.map((s, n) => (
+        <div key={s.base} className="hero__slide" data-on={n === i} aria-hidden={n !== i}>
+          <div className="hero__media scrim">
+            <picture>
+              {/* purpose-made portrait crop first, then the landscape ladder,
+                  then a JPEG for anything without WebP. */}
+              {s.baseMobile && (
+                <source media="(max-width: 767px)" type="image/webp"
+                        srcSet={srcSet(s.baseMobile, 'hero')} sizes={SIZES.full} />
+              )}
+              <source type="image/webp" srcSet={srcSet(s.base, 'hero')} sizes={SIZES.full} />
+              <img src={fallbackSrc(s.base)} alt={n === i ? s.alt : ''}
+                   style={{ objectPosition: s.focal }}
+                   loading={n === 0 ? 'eager' : 'lazy'}
+                   fetchPriority={n === 0 ? 'high' : 'low'}
+                   onError={(e) => {
+                     /* Nothing in the pipeline output resolved — most likely the
+                        photography has not been dropped into media/ yet. Strip
+                        the <source> siblings too, or they keep winning over the
+                        src we are about to set. */
+                     const el = e.currentTarget;
+                     if (el.dataset.fell) return;              // never loop
+                     el.dataset.fell = '1';
+                     el.parentElement?.querySelectorAll('source').forEach((n) => n.remove());
+                     el.srcset = '';
+                     el.src = s.fallback;
+                     el.style.objectPosition = 'center';
+                   }} />
+            </picture>
           </div>
-          <div className="overlay-content overlay-bl">
+
+          <div className="overlay-content overlay-bl hero__copy">
             <div className="container" style={{ paddingInline: 0 }}>
               <div className="stack-md">
                 <p className="eyebrow">{s.eyebrow}</p>
-                {/* the measure cap lives on the h1 itself: `ch` resolves against
-                    the element's own font, so putting it on a body-sized wrapper
-                    would clamp the headline to a fifth of the intended width. */}
-                <h1 className="t-hero" style={{ color: 'var(--color-canvas)', maxWidth: '17ch' }}>{s.title}</h1>
-                <div><ButtonLink to={s.to} variant="overlay">{s.cta}</ButtonLink></div>
+                <h1 className="t-hero hero__title">{s.title}</h1>
+                <div><ButtonLink to={s.to} variant="overlay" tabIndex={n === i ? 0 : -1}>{s.cta}</ButtonLink></div>
               </div>
             </div>
           </div>
         </div>
       ))}
 
-      {/* slide controls — hairline bars, [CHA] .page-btn */}
-      <div className="container" style={{ position: 'absolute', bottom: '2rem', left: '50%', transform: 'translateX(-50%)', display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
-        {SLIDES.map((s, n) => (
-          <button key={s.image} onClick={() => setI(n)} aria-label={`Go to slide ${n + 1}`}
-                  className={cx('hero-dot')}
-                  style={{
-                    width: n === i ? 42 : 22, height: 2, border: 0, cursor: 'pointer',
-                    background: n === i ? 'var(--color-canvas)' : 'rgb(255 255 255 / 0.45)',
-                    transition: 'width var(--dur-slow) var(--ease-brand), background-color var(--dur-base) var(--ease-out-quad)',
-                  }} />
+      <div className="container hero__dots">
+        {heroSlides.map((s, n) => (
+          <button key={s.base} onClick={() => setI(n)}
+                  aria-label={`Go to slide ${n + 1} of ${heroSlides.length}`}
+                  aria-current={n === i}
+                  className="hero__dot" data-on={n === i} />
         ))}
       </div>
     </section>

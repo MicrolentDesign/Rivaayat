@@ -580,6 +580,52 @@
   code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.78em; }
 
 
+
+  /* ══ HERO ══════════════════════════════════════════════════════════════════
+     Height is deliberately shorter on phones. A 16:9 frame cropped to a tall
+     portrait window shows less and less of its width the taller the window
+     gets, so a 92svh hero on a 390px phone would keep about a quarter of the
+     frame. 68svh widens that window and leaves the copy somewhere to sit. */
+  .hero { position: relative; height: 68svh; min-height: 30rem; background: var(--color-bone); }
+  @media (min-width: 768px)  { .hero { height: 82svh; min-height: 34rem; } }
+  @media (min-width: 1024px) { .hero { height: min(92svh, 52rem); } }
+
+  .hero__slide {
+    position: absolute; inset: 0;
+    opacity: 0; pointer-events: none;
+    transition: opacity 1100ms var(--ease-brand);
+  }
+  .hero__slide[data-on='true'] { opacity: 1; pointer-events: auto; }
+
+  .hero__media { position: absolute; inset: 0; overflow: hidden; background: var(--color-bone); }
+  .hero__media img,
+  .hero__media picture { width: 100%; height: 100%; display: block; }
+  .hero__media img { object-fit: cover; }
+
+  /* The copy sits bottom-left while the model stands right of centre. On a
+     phone those two are close enough to collide, so the scrim carries more
+     weight at the bottom of small screens than it does on desktop. */
+  @media (max-width: 767px) {
+    .hero__media.scrim::after {
+      background: linear-gradient(to top, rgb(0 0 0 / 0.70) 0%, rgb(0 0 0 / 0.34) 42%, rgb(0 0 0 / 0.08) 78%);
+    }
+  }
+
+  .hero__copy { padding-bottom: clamp(3.5rem, 8vw, 3.5rem); }
+  .hero__title { color: var(--color-canvas); max-width: 17ch; }
+  @media (max-width: 767px) { .hero__title { max-width: 15ch; } }
+
+  .hero__dots {
+    position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; justify-content: flex-end; gap: 0.5rem;
+  }
+  .hero__dot {
+    width: 22px; height: 2px; border: 0; cursor: pointer;
+    background: rgb(255 255 255 / 0.45);
+    transition: width var(--dur-slow) var(--ease-brand), background-color var(--dur-base) var(--ease-out-quad);
+  }
+  .hero__dot[data-on='true'] { width: 42px; background: var(--color-canvas); }
+
   /* ══ CUSTOM FITMENT — measurement diagram ══════════════════════════════════
      The flat reads its colours from these three variables so it follows the
      scheme of whatever section it sits in, rather than carrying literal hex. */

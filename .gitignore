@@ -16,3 +16,8 @@ dist
 .idea
 .vscode/*
 !.vscode/extensions.json
+
+# generated image derivatives — rebuilt from media/ by npm run images
+/public/hero/
+/public/product/
+/public/images.json
