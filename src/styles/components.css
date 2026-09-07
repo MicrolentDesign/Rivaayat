@@ -443,6 +443,7 @@
   .header[data-transparent='true'] .icon-btn,
   .header[data-transparent='true'] .nav-link,
   .header[data-transparent='true'] .wordmark { color: var(--color-canvas); }
+  .header[data-transparent='true'] .wordmark__sub { color: rgb(255 255 255 / 0.72); }
   .header[data-transparent='true'] .icon-btn:hover,
   .header[data-transparent='true'] .nav-link:hover { color: rgb(255 255 255 / 0.7); }
 
@@ -464,21 +465,46 @@
   }
   .nav-link:hover::after, .nav-link[aria-current='page']::after { transform: scaleX(1); transform-origin: left; }
 
+  /* ══ WORDMARK ══════════════════════════════════════════════════════════════
+     Classical roman capitals, widely tracked, in the house green — set from
+     the supplied logo. Optical corrections that matter at logo scale:
+       · `padding-left` of one tracking unit, because letter-spacing adds a
+         trailing space after the final T that would otherwise sit the mark
+         off-centre in a centred header;
+       · `font-synthesis: none` so no browser fakes a weight;
+       · `currentColor` inheritance is deliberate — over hero imagery and in
+         the dark footer the mark has to abandon green for the surface's
+         own contrast colour, which .header[data-transparent] and
+         .scheme-dark both set.                                            */
   .wordmark {
-    font-family: var(--font-display);
+    font-family: var(--font-wordmark);
     font-weight: 400;
     font-synthesis: none;
-    letter-spacing: 0.14em;
+    font-size: 1.375rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
     line-height: 1;
-    color: var(--color-ink);
+    white-space: nowrap;
+    color: var(--color-brand);
+    padding-left: 0.2em;
   }
+  .wordmark--lg { font-size: clamp(1.75rem, 1rem + 2.6vw, 3rem); letter-spacing: 0.22em; padding-left: 0.22em; }
+  .wordmark--sm { font-size: 1.0625rem; letter-spacing: 0.18em; padding-left: 0.18em; }
+  /* Inherit the surface's contrast colour where green cannot survive. */
+  .wordmark--inherit { color: currentColor; }
+
+  /* Optional lockup line under the mark. Same trailing-space correction as
+     .wordmark, at its own tracking. */
   .wordmark__sub {
     font-family: var(--font-sans);
     font-size: 0.5rem;
-    font-weight: 400;
-    letter-spacing: 0.42em;
+    font-weight: 500;
+    letter-spacing: 0.38em;
     text-transform: uppercase;
+    line-height: 1;
+    white-space: nowrap;
     color: var(--color-ink-muted);
+    padding-left: 0.38em;
   }
 
   /* Announcement bar — [EOI] top strip, uppercase, tiny */

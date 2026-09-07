@@ -120,5 +120,9 @@
   .scheme-dark      { background: var(--color-obsidian);  color: var(--color-on-dark-muted); }
   .scheme-dark :is(h1,h2,h3,h4,h5,h6) { color: var(--color-on-dark); }
   .scheme-dark .eyebrow { color: var(--color-on-dark-muted); }
+  /* The wordmark carries brand green, which is unreadable on the dark ground —
+     on this surface it takes the surface's own contrast colour instead. */
+  .scheme-dark .wordmark { color: var(--color-on-dark); }
+  .scheme-dark .wordmark__sub { color: var(--color-on-dark-muted); }
   .scheme-dark hr, .scheme-dark .rule { border-color: var(--color-on-dark-line); }
 }

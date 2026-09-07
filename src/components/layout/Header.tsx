@@ -40,7 +40,7 @@ export function Header({ overHero = false }: { overHero?: boolean }) {
             </span>
           </nav>
 
-          <Wordmark size={20} />
+          <Wordmark />
 
           {/* right */}
           <div className="cluster" style={{ justifyContent: 'flex-end', gap: '0.25rem' }}>
@@ -102,7 +102,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       <div className="backdrop" onClick={onClose} />
       <div className="drawer drawer-left" role="dialog" aria-modal="true" aria-label="Menu">
         <div className="drawer__head">
-          <Wordmark size={17} sub={false} />
+          <Wordmark size="sm" />
           <button className="icon-btn" onClick={onClose} aria-label="Close menu"><IconClose /></button>
         </div>
         <nav className="drawer__body">

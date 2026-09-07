@@ -55,6 +55,14 @@
   --color-accent-hover:     #7E3A18;
   --color-accent-tint:      #F6EDE6;   /* accent surface at 8%              */
 
+  /* — Brand green. The wordmark's own colour, from the logo the client
+       supplied. It is an identity colour, not a UI colour: the wordmark,
+       the favicon and the seal use it and nothing else does. Their earlier
+       brand guide recorded the house green as #001D00 — if that is still
+       the official value, change it here and the logo follows. — */
+  --color-brand:            #0B2312;
+  --color-brand-soft:       #13361D;
+
   /* — Heritage support. Used at ≤5% of any screen: rules, seals, motifs. — */
   --color-marigold:         #C08A2E;
   --color-indigo:           #2B3A4A;
@@ -92,6 +100,11 @@
      little as possible.                                                     */
   --font-display:  'Calone', 'Futura', 'Avenir Next', 'Century Gothic', 'Trebuchet MS', sans-serif;
   --font-sans:     'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
+  /* WORDMARK — a classical high-contrast roman, used for the logo and
+     nothing else. The logo is an identity asset rather than a text style:
+     it does not participate in the type scale and must not leak into
+     headings, which stay Calone. */
+  --font-wordmark: 'Cormorant Garamond', 'EB Garamond', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
   /* Alias kept for any component still asking for a "serif" slot; it must
      resolve to the brand voice, never to a stray system serif. */
   --font-serif:    var(--font-display);

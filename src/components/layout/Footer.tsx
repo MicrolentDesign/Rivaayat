@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Wordmark } from './Wordmark';
 import { IconInstagram, IconPinterest, IconMail, IconRight } from '@/components/primitives/Icon';
 
 const COLUMNS = [
@@ -44,10 +45,7 @@ export function Footer() {
       <div className="container section-lg">
         <div style={{ display: 'grid', gap: '2.5rem', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 13rem), 1fr))' }}>
           <div className="stack-md" style={{ gridColumn: 'span 1' }}>
-            <div style={{ color: 'var(--color-on-dark)' }}>
-              <span className="wordmark" style={{ fontSize: 22, color: 'var(--color-on-dark)' }}>Rivaayat</span>
-              <p className="wordmark__sub" style={{ marginTop: 6, color: 'var(--color-on-dark-muted)' }}>Atelier · Est. 1974</p>
-            </div>
+            <Wordmark sub />
             <p className="t-sm" style={{ color: 'var(--color-on-dark-muted)', maxWidth: '30ch' }}>
               A menswear couture house working with seventy-one artisan families across eight Indian states.
             </p>
