@@ -42,7 +42,7 @@ export function CustomOrdersPage() {
         </div>
       </section>
 
-      <Marquee items={['No surcharge for made to measure', 'Nine to twelve measurements', 'Checked by a cutter before anything is cut', 'Free alterations on the first fitting']} />
+      <Marquee items={['No surcharge for made to measure', 'Six measurements for a kurta', 'Checked by a cutter before anything is cut', 'Free alterations on the first fitting']} />
 
       <section className="section-lg">
         <div className="container">

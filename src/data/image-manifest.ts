@@ -2,31 +2,38 @@
    Maps each image base path to the widths that exist on disk. */
 
 export const IMAGE_WIDTHS: Record<string, number[]> = {
-  '/Sections/HOMES1': [640, 960, 1280, 1536],
-  '/Sections/HOMES2': [640, 960, 1280, 1536],
-  '/hero/H1': [640, 960, 1440],
-  '/hero/H2': [640, 960, 1440],
-  '/hero/H3': [640, 960, 1440],
-  '/product/K1': [360, 480, 600, 702],
-  '/product/K2': [360, 480, 600, 702, 900],
-  '/product/S1': [360, 480, 600, 702],
-  '/product/S2': [360, 480, 600, 702, 900],
-  '/product/SK1': [360, 480, 600, 702],
-  '/product/SK2': [360, 480, 600, 702, 900],
-  '/product/SK3': [360, 480, 600, 702, 900],
-  '/product/WC1': [360, 480, 600, 702],
-  '/product/WC2': [360, 480, 600, 702],
-  '/product/WC3': [360, 480, 600, 702, 900],
+  '/sections/everyday-handloom': [640, 960, 1280, 1536],
+  '/sections/homes1': [640, 960, 1280, 1536],
+  '/sections/homes2': [640, 960, 1280, 1536],
+  '/sections/made-to-measure': [640, 960, 1280],
+  '/sections/gift-card': [640, 960, 1280, 1536],
+  '/hero/h1-portrait': [480, 720, 960, 1200],
+  '/hero/h1': [640, 960, 1440],
+  '/hero/h2-portrait': [480, 720, 960, 1200],
+  '/hero/h2': [640, 960, 1440],
+  '/hero/h3-portrait': [480, 720, 960, 1200],
+  '/hero/h3': [640, 960, 1440],
+  '/product/k1': [360, 480, 600, 702],
+  '/product/k2': [360, 480, 600, 702, 900],
+  '/product/s1': [360, 480, 600, 702],
+  '/product/s2': [360, 480, 600, 702, 900],
+  '/product/sk1': [360, 480, 600, 702],
+  '/product/sk2': [360, 480, 600, 702, 900],
+  '/product/sk3': [360, 480, 600, 702, 900],
+  '/product/sk4': [360, 480, 600, 702, 900],
+  '/product/wc1': [360, 480, 600, 702],
+  '/product/wc2': [360, 480, 600, 702],
+  '/product/wc3': [360, 480, 600, 702, 900],
 };
 
 /* Product photography grouped by category, from the filename prefix:
    S* sherwani  ·  K* kurta  ·  SK* shalwar kameez  ·  WC* waistcoat
    Sorted naturally, so S2 comes before S10. */
 export const PRODUCT_IMAGES: Record<string, string[]> = {
-  'kurta': ['/product/K1', '/product/K2'],
-  'sherwani': ['/product/S1', '/product/S2'],
-  'shalwar-kameez': ['/product/SK1', '/product/SK2', '/product/SK3'],
-  'waistcoat': ['/product/WC1', '/product/WC2', '/product/WC3'],
+  'kurta': ['/product/k1', '/product/k2'],
+  'sherwani': ['/product/s1', '/product/s2'],
+  'shalwar-kameez': ['/product/sk1', '/product/sk2', '/product/sk3', '/product/sk4'],
+  'waistcoat': ['/product/wc1', '/product/wc2', '/product/wc3'],
 };
 
 /* Category tile art, from media/category/<slug>.<ext>. Optional — a

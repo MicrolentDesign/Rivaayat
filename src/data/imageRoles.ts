@@ -12,7 +12,7 @@ import type { CategorySlug } from './types';
 
 /** Category tile art taken from a product-folder image. */
 export const TILE_FROM_PRODUCT: Partial<Record<CategorySlug, string>> = {
-  'shalwar-kameez': '/product/SK3',
+  'shalwar-kameez': '/product/sk3',
 };
 
 /** Every base claimed for a non-product role, flattened for pool filtering. */

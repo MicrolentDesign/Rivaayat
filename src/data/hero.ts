@@ -25,8 +25,8 @@ export interface HeroSlide {
    master and only bite on tablet: phones get the pipeline's 4:5 crop instead. */
 export const heroSlides: HeroSlide[] = [
   {
-    base: '/hero/H3',
-    baseMobile: '/hero/H3-portrait',
+    base: '/hero/h3',
+    baseMobile: '/hero/h3-portrait',
     fallback: '/img/hero-01.svg',
     focal: '60% center',
     alt: 'A man in a cream kurta and block-printed Nehru jacket walking a stone terrace above a lake palace',
@@ -36,8 +36,8 @@ export const heroSlides: HeroSlide[] = [
     to: '/shop/kurta',
   },
   {
-    base: '/hero/H2',
-    baseMobile: '/hero/H2-portrait',
+    base: '/hero/h2',
+    baseMobile: '/hero/h2-portrait',
     fallback: '/img/hero-02.svg',
     focal: '65% center',
     alt: 'A man in a navy kurta and stole on a hillside above the sea at first light',
@@ -47,8 +47,8 @@ export const heroSlides: HeroSlide[] = [
     to: '/custom',
   },
   {
-    base: '/hero/H1',
-    baseMobile: '/hero/H1-portrait',
+    base: '/hero/h1',
+    baseMobile: '/hero/h1-portrait',
     fallback: '/img/hero-03.svg',
     focal: '49% center',
     alt: 'A man in a hand-embroidered black jacket walking open grassland under a wide sky',

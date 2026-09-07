@@ -7,7 +7,7 @@ import { SectionHead } from '@/components/primitives/SectionHead';
 import { Reveal } from '@/components/primitives/Reveal';
 
 const STEPS = [
-  ['01', 'The measurements', 'Nine numbers, taken here or sent from wherever you are. There is a video that walks you through it and a person who will get on a call if it does not.'],
+  ['01', 'The measurements', 'Six numbers for a kurta, taken here or sent from wherever you are. There is a video that walks you through it and a person who will get on a call if it does not.'],
   ['02', 'The toile', 'A cotton mock-up, cut to your numbers and photographed on a form. You see it before a single metre of silk is touched.'],
   ['03', 'The frame', 'Embroidery goes on a wooden frame and stays there for as long as it takes. Six weeks for a kurta, ninety days for a sherwani.'],
   ['04', 'The finish', 'Hand-rolled edges, hidden seams, a final press. Then the muslin bag, the order card, and the names of everyone who touched it.'],

@@ -53,7 +53,7 @@ export function HomePage() {
       />
 
       <EditorialSplit
-        base="/Sections/HOMES1"
+        base="/sections/homes1"
         alt="A hand-embroidered jacket photographed close, the stitching visible"
         eyebrow="Made to last longer than you"
         title="Meet the piece that outlives the occasion."
@@ -84,7 +84,7 @@ export function HomePage() {
       <Countdown />
 
       <EditorialSplit
-        base="/Sections/HOMES2"
+        base="/sections/homes2"
         alt="Two artisans at a wooden embroidery frame in the atelier"
         eyebrow="Inside the atelier"
         title="Seventy-one families, eight states, one order card."

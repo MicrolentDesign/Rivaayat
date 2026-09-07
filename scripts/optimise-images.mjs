@@ -65,6 +65,15 @@ const PROFILES = {
 
 const RASTER = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.tif', '.tiff']);
 
+/* Output paths are slugified so a URL never depends on how a file was named.
+   "Made to measure.png" in a folder called "Sections" would otherwise ship as
+   /Sections/Made%20to%20measure-960.webp — which works, but is fragile across
+   CDNs and unpleasant to reference. Source filenames are left alone. */
+const slug = (v) => v
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-+|-+$/g, '');
+
 async function walk(dir) {
   const out = [];
   if (!existsSync(dir)) return out;
@@ -97,11 +106,12 @@ async function run() {
 
   for (const file of files) {
     const rel = path.relative(SRC, file);
-    const dir = path.dirname(rel);
-    const name = path.basename(rel, path.extname(rel));
+    const srcDir = path.dirname(rel);
+    const dir = srcDir.split(path.sep).map(slug).join(path.sep);
+    const name = slug(path.basename(rel, path.extname(rel)));
     /* Folder name picks the profile, case-insensitively — "Sections" and
        "sections" should not behave differently. */
-    const folder = dir.split(path.sep)[0].toLowerCase();
+    const folder = dir.split(path.sep)[0];
     const profile = PROFILES[folder] ?? PROFILES.default;
     const outDir = path.join(OUT, dir);
     await mkdir(outDir, { recursive: true });
@@ -174,12 +184,24 @@ async function run() {
             .toFile(pFallback);
           wrote++;
         }
+        /* Register the crop in the manifest under its own base. Without this
+           srcSet() falls back to the profile's default widths and advertises
+           rungs the crop never produced — a phone at a high DPR asks for one,
+           takes a 404, and the hero drops to its placeholder. */
+        manifest[`${dir}/${name}-portrait`] = {
+          widths: pWidths.map((w) => ({ w, src: `/${path.join(dir, `${name}-portrait-${w}.webp`)}` })),
+          fallback: `/${path.join(dir, `${name}-portrait.jpg`)}`,
+          width: 0, height: 0,
+        };
         portraitNote = ` + ${pWidths.length} portrait`;
       }
     }
 
     manifest[`${dir}/${name}`.replace(/^\.\//, '')] = entry;
-    console.log(`  ${rel}  ${srcWidth}px  →  ${widths.length} webp + jpg${portraitNote}`);
+    const renamed = slug(path.basename(rel, path.extname(rel))) !== path.basename(rel, path.extname(rel)).toLowerCase()
+      || srcDir !== dir;
+    console.log(`  ${rel}  ${srcWidth}px  →  ${widths.length} webp + jpg${portraitNote}`
+      + (renamed ? `   [/${dir}/${name}]` : ''));
   }
 
   await writeFile(path.join(OUT, 'images.json'), JSON.stringify(manifest, null, 2));
