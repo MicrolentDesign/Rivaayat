@@ -108,7 +108,7 @@ export function ProductPage() {
                 </button>
               </div>
 
-              <Link to="/atelier#measure" className="btn btn-secondary btn-block">Request made to measure</Link>
+              <Link to={`/custom/${product.slug}`} className="btn btn-secondary btn-block">Order in your measurements</Link>
 
               {/* service strip */}
               <ul className="stack-xs" style={{ paddingTop: '0.5rem' }}>

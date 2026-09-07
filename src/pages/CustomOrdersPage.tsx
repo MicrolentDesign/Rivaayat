@@ -8,7 +8,7 @@ import { IconRuler, IconNeedle, IconReturn, IconTruck } from '@/components/primi
 
 const STEPS = [
   ['01', 'Choose the garment', 'Pick any piece in the collection. Every one of them can be made to your measurements instead of to a chest size.'],
-  ['02', 'Take your measurements', 'A labelled diagram walks you through each one, in inches or centimetres. Nine numbers for a waistcoat, twelve for a sherwani.'],
+  ['02', 'Take your measurements', 'A labelled diagram walks you through each one, in inches by default or centimetres if you prefer. Six numbers for a kurta.'],
   ['03', 'We check them', 'A cutter reads every set before anything is cut. If a number looks wrong against the others, we call you rather than guess.'],
   ['04', 'It gets made', 'Cut to your numbers, finished by hand, and shipped with the order card naming everyone who worked on it.'],
 ];
@@ -65,11 +65,14 @@ export function CustomOrdersPage() {
           <div className="grid-tiles-4">
             {categories.map((c, i) => (
               <Reveal key={c.slug} delay={(i % 4) * 90}>
-                <Link to={`/shop/${c.slug}`} className="group" style={{ display: 'block', position: 'relative' }}>
+                <Link to={c.slug === 'kurta' ? '/custom/zafar-kurta-set' : `/shop/${c.slug}`}
+                      className="group" style={{ display: 'block', position: 'relative' }}>
                   <div className="media media-portrait media-zoom scrim"><img src={c.image} alt="" loading="lazy" /></div>
                   <div className="overlay-content overlay-bl" style={{ padding: '1.5rem' }}>
                     <h3 className="t-h3" style={{ color: 'var(--color-canvas)' }}>{c.name}</h3>
-                    <p className="eyebrow" style={{ marginTop: '0.4rem' }}>Start a custom order</p>
+                    <p className="eyebrow" style={{ marginTop: '0.4rem' }}>
+                      {c.slug === 'kurta' ? 'Take measurements' : 'Start a custom order'}
+                    </p>
                   </div>
                 </Link>
               </Reveal>

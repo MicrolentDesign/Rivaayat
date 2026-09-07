@@ -25,7 +25,18 @@ Vector outlines used by the custom-fitment measurement step. One per category.
 - Marker positions live in the measurement schema in code, **not** in the SVG,
   so replacing artwork never means rewiring the flow.
 
+- **Two stroke weights**, as on a spec sheet: 2.6 for the silhouette and the
+  collar, 1.5 for seams and construction lines. The hierarchy is what makes a
+  flat read as a technical drawing rather than an outline.
+
 ## Landmarks kept in `kurta.svg`
 
 Mandarin collar band with fold line · front placket · cuffed sleeves · side
 slits with the lining visible through them · curved hem.
+
+## Measurements
+
+Six for the kurta, in `src/data/measurements.ts`: chest, shoulder, kurta
+length, sleeve length, neck, waist. Cut down from a first list of nine —
+hip, bicep and cuff were dropped as noted in that file. Adding one back is
+an entry plus a marker coordinate.

@@ -553,6 +553,54 @@
   .ds-icons    { display: grid; gap: 1.75rem 1rem; grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr)); color: var(--color-ink); }
   code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.78em; }
 
+
+  /* ══ CUSTOM FITMENT — measurement diagram ══════════════════════════════════
+     The flat reads its colours from these three variables so it follows the
+     scheme of whatever section it sits in, rather than carrying literal hex. */
+  .fit { display: grid; gap: clamp(1.5rem, 3vw, 2.75rem); align-items: start; }
+  @media (min-width: 960px) { .fit { grid-template-columns: minmax(0, 1fr) 25rem; } }
+
+  .fit-stage {
+    position: relative;
+    background: var(--color-alabaster);
+    border: var(--hairline) solid var(--color-line);
+    padding: clamp(1rem, 2.5vw, 2rem) clamp(1rem, 2.5vw, 2rem) 4.25rem;
+    --flat-line: var(--color-ink);
+    --flat-fill: var(--color-canvas);
+    --flat-lining: var(--color-bone);
+  }
+  /* On a phone the diagram stays put while the fields scroll under it. */
+  @media (min-width: 960px) { .fit-stage { position: sticky; top: 6.5rem; } }
+  .fit-flat { display: block; width: 100%; max-width: 27rem; height: auto; margin-inline: auto; }
+  @media (max-width: 959px) { .fit-flat { max-height: 46vh; } }
+
+  .fit-guide { stroke: var(--color-accent); stroke-width: 1.4; stroke-dasharray: 6 6; opacity: 0; transition: opacity var(--dur-base) var(--ease-out-quad); }
+  .fit-guide[data-on='true'] { opacity: 0.8; }
+
+  .fit-marker { cursor: pointer; }
+  .fit-marker circle { fill: var(--color-canvas); stroke: var(--color-accent); stroke-width: 1.6; transition: fill var(--dur-fast) var(--ease-out-quad); }
+  .fit-marker text { fill: var(--color-accent); font-family: var(--font-sans); font-size: 14px; font-weight: 600; text-anchor: middle; dominant-baseline: central; pointer-events: none; transition: fill var(--dur-fast) var(--ease-out-quad); }
+  .fit-marker:hover circle, .fit-marker[data-on='true'] circle { fill: var(--color-accent); }
+  .fit-marker:hover text, .fit-marker[data-on='true'] text { fill: var(--color-canvas); }
+
+  .fit-units { position: absolute; right: clamp(1rem, 2.5vw, 2rem); bottom: 1.25rem; display: inline-flex; border: var(--hairline) solid var(--color-line); background: var(--color-canvas); }
+  .fit-units button { font-size: var(--text-2xs); font-weight: 600; letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-ink-muted); padding: 0.65rem 1.1rem; transition: background-color var(--dur-fast) var(--ease-out-quad), color var(--dur-fast) var(--ease-out-quad); }
+  .fit-units button[aria-pressed='true'] { background: var(--color-ink); color: var(--color-canvas); }
+
+  /* ── fields ── */
+  .fit-fields { display: grid; border-top: var(--hairline) solid var(--color-line); }
+  .fit-row { display: grid; grid-template-columns: 1.75rem 1fr 6.5rem; gap: 0.75rem; align-items: center; padding: 0.8rem 0; border-bottom: var(--hairline) solid var(--color-line); transition: background-color var(--dur-fast) var(--ease-out-quad); }
+  .fit-row[data-on='true'] { background: var(--color-accent-tint); }
+  .fit-row__n { width: 1.5rem; height: 1.5rem; border-radius: var(--radius-pill); border: var(--hairline) solid var(--color-accent); color: var(--color-accent); display: grid; place-items: center; font-size: var(--text-2xs); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .fit-row[data-on='true'] .fit-row__n { background: var(--color-accent); color: var(--color-canvas); }
+  .fit-row label { font-size: var(--text-sm); color: var(--color-ink); cursor: pointer; }
+  .fit-row label span { display: block; font-size: var(--text-xs); color: var(--color-ink-muted); line-height: 1.4; }
+  .fit-row__in { position: relative; }
+  .fit-row input { width: 100%; font-size: var(--text-sm); font-variant-numeric: tabular-nums; color: var(--color-ink); background: var(--color-canvas); border: var(--hairline) solid var(--color-line); border-radius: var(--radius-input); padding: 0.55rem 2.1rem 0.55rem 0.6rem; }
+  .fit-row input:focus { outline: none; border-color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-ink); }
+  .fit-row input[aria-invalid='true'] { border-color: var(--color-danger); }
+  .fit-row__u { position: absolute; right: 0.6rem; top: 50%; transform: translateY(-50%); font-size: var(--text-2xs); color: var(--color-ink-muted); pointer-events: none; }
+
   /* ══ PDP ══ */
   .pdp { display: grid; gap: clamp(2rem, 4vw, 3.5rem); }
   .pdp__gallery { display: grid; gap: 0.75rem; }

@@ -7,6 +7,7 @@ import { AtelierPage } from '@/pages/AtelierPage';
 import { JournalPage } from '@/pages/JournalPage';
 import { WishlistPage } from '@/pages/WishlistPage';
 import { CustomOrdersPage } from '@/pages/CustomOrdersPage';
+import { CustomFitPage } from '@/pages/CustomFitPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 
 export const router = createBrowserRouter([
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
       { path: 'journal', element: <JournalPage /> },
       { path: 'wishlist', element: <WishlistPage /> },
       { path: 'custom', element: <CustomOrdersPage /> },
+      { path: 'custom/:slug', element: <CustomFitPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },
