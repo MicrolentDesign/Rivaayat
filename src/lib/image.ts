@@ -1,22 +1,30 @@
 /* Helpers for the responsive images produced by scripts/optimise-images.mjs.
 
-   The pipeline writes public/images.json, but the components do not read it at
-   runtime — that would mean a network round trip before the hero can even start
-   loading. Instead these build the srcset from the naming convention, which is
-   fixed and known at author time. */
+   Widths come from the generated manifest rather than the profile defaults,
+   because the pipeline never upscales: a 1680px master fills the 640/960/1440
+   rungs and not 1920 or 2560. Advertising a rung that does not exist means a
+   retina screen requests it, gets a 404, and the whole <picture> fails. The
+   manifest is imported, not fetched — a network round trip before the hero
+   could start loading would defeat the point of the exercise. */
+
+import { IMAGE_WIDTHS } from '@/data/image-manifest';
 
 export type ImageProfile = 'hero' | 'product' | 'default';
 
-const WIDTHS: Record<ImageProfile, number[]> = {
+const FALLBACK_WIDTHS: Record<ImageProfile, number[]> = {
   hero: [640, 960, 1440, 1920, 2560],
   product: [480, 720, 1080, 1440],
   default: [640, 1024, 1600],
 };
 
-/** `/hero/terrace` → `/hero/terrace-640.webp 640w, /hero/terrace-960.webp 960w, …` */
+/** `/hero/H3` → `/hero/H3-640.webp 640w, /hero/H3-960.webp 960w, …` */
 export function srcSet(base: string, profile: ImageProfile = 'default') {
-  return WIDTHS[profile].map((w) => `${base}-${w}.webp ${w}w`).join(', ');
+  const widths = IMAGE_WIDTHS[base] ?? FALLBACK_WIDTHS[profile];
+  return widths.map((w) => `${base}-${w}.webp ${w}w`).join(', ');
 }
+
+/** True once the pipeline has actually produced this image. */
+export const hasImage = (base: string) => base in IMAGE_WIDTHS;
 
 /** The JPEG the pipeline leaves beside the WebP set, for browsers without it. */
 export const fallbackSrc = (base: string) => `${base}.jpg`;

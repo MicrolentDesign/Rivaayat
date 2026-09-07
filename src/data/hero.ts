@@ -20,23 +20,26 @@ export interface HeroSlide {
 
 /* Focal points are measured from the supplied frames: the model stands
    right of centre in all three, furthest right in the hillside shot. */
+/* Slides are ordered by what the frame says, not by filename — H1/H2/H3 came
+   in a different order from the shot list. Focal points are measured from each
+   master and only bite on tablet: phones get the pipeline's 4:5 crop instead. */
 export const heroSlides: HeroSlide[] = [
   {
-    base: '/hero/terrace',
-    baseMobile: '/hero/terrace-portrait',
+    base: '/hero/H3',
+    baseMobile: '/hero/H3-portrait',
     fallback: '/img/hero-01.svg',
-    focal: '62% center',
-    alt: 'A man in a cream kurta and printed Nehru jacket walking a stone terrace above a lake palace',
+    focal: '60% center',
+    alt: 'A man in a cream kurta and block-printed Nehru jacket walking a stone terrace above a lake palace',
     eyebrow: 'Mehtab · Autumn Winter 2026',
     title: 'Cloth that remembers whose hands made it.',
     cta: 'Enter the collection',
     to: '/shop/kurta',
   },
   {
-    base: '/hero/hillside',
-    baseMobile: '/hero/hillside-portrait',
+    base: '/hero/H2',
+    baseMobile: '/hero/H2-portrait',
     fallback: '/img/hero-02.svg',
-    focal: '66% center',
+    focal: '65% center',
     alt: 'A man in a navy kurta and stole on a hillside above the sea at first light',
     eyebrow: 'Made to measure, no surcharge',
     title: 'Six numbers. One kurta. Cut to you.',
@@ -44,10 +47,10 @@ export const heroSlides: HeroSlide[] = [
     to: '/custom',
   },
   {
-    base: '/hero/grassland',
-    baseMobile: '/hero/grassland-portrait',
+    base: '/hero/H1',
+    baseMobile: '/hero/H1-portrait',
     fallback: '/img/hero-03.svg',
-    focal: '52% center',
+    focal: '49% center',
     alt: 'A man in a hand-embroidered black jacket walking open grassland under a wide sky',
     eyebrow: 'The Archive',
     title: 'One of one, and never remade.',
