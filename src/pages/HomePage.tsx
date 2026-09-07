@@ -18,6 +18,21 @@ import { products, newArrivals, bestsellers, uniqueById } from '@/data/products'
 export function HomePage() {
   const [quick, setQuick] = useState<Product | null>(null);
 
+  /* Two rails, twelve pieces. Eight each overlapped on five — the same
+     garment twice within a screen of scrolling, which reads as a thin
+     catalogue rather than a curated one. Six each divides the twelve exactly,
+     so the second rail is whatever the first did not take and nothing repeats.
+     Both rails scroll, so six is not a visible shortfall.
+     Raise RAIL_SIZE once the catalogue outgrows it. */
+  const RAIL_SIZE = 6;
+  const firstRail = uniqueById([...newArrivals(), ...products]).slice(0, RAIL_SIZE);
+  const shown = new Set(firstRail.map((p) => p.id));
+  const rest = products.filter((p) => !shown.has(p.id));
+  const secondRail = uniqueById([
+    ...bestsellers().filter((p) => !shown.has(p.id)),
+    ...rest,
+  ]).slice(0, RAIL_SIZE);
+
   return (
     <>
       <Hero />
@@ -32,7 +47,7 @@ export function HomePage() {
       <FeaturedRail
         eyebrow="Introducing"
         title="New arrivals"
-        products={uniqueById([...newArrivals(), ...products]).slice(0, 8)}
+        products={firstRail}
         link="/shop/all" linkLabel="Shop all new"
         onQuickView={setQuick}
       />
@@ -60,7 +75,7 @@ export function HomePage() {
       <FeaturedRail
         eyebrow="Most requested"
         title="The pieces people come back for"
-        products={uniqueById([...bestsellers(), ...products.slice(3)]).slice(0, 8)}
+        products={secondRail}
         link="/shop/all" linkLabel="View all"
         onQuickView={setQuick}
         scheme="scheme-alabaster"

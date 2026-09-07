@@ -13,6 +13,7 @@ export const IMAGE_WIDTHS: Record<string, number[]> = {
   '/product/S2': [360, 480, 600, 702, 900],
   '/product/SK1': [360, 480, 600, 702],
   '/product/SK2': [360, 480, 600, 702, 900],
+  '/product/SK3': [360, 480, 600, 702, 900],
   '/product/WC1': [360, 480, 600, 702],
   '/product/WC2': [360, 480, 600, 702],
   '/product/WC3': [360, 480, 600, 702, 900],
@@ -24,7 +25,7 @@ export const IMAGE_WIDTHS: Record<string, number[]> = {
 export const PRODUCT_IMAGES: Record<string, string[]> = {
   'kurta': ['/product/K1', '/product/K2'],
   'sherwani': ['/product/S1', '/product/S2'],
-  'shalwar-kameez': ['/product/SK1', '/product/SK2'],
+  'shalwar-kameez': ['/product/SK1', '/product/SK2', '/product/SK3'],
   'waistcoat': ['/product/WC1', '/product/WC2', '/product/WC3'],
 };
 

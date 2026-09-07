@@ -1,4 +1,5 @@
 import { PRODUCT_IMAGES } from './image-manifest';
+import { CLAIMED_BASES } from './imageRoles';
 import { products } from './products';
 import type { Product } from './types';
 
@@ -25,7 +26,10 @@ const MAX_SHOTS = 2;
 
 const assigned = new Map<string, string[]>();
 
-for (const [category, pool] of Object.entries(PRODUCT_IMAGES)) {
+for (const [category, allShots] of Object.entries(PRODUCT_IMAGES)) {
+  /* Skip files claimed for another role — a tile photograph should not also
+     turn up on a card two rows away. */
+  const pool = allShots.filter((base) => !CLAIMED_BASES.has(base));
   /* Labelled pieces get photographed first. The homepage rails are built from
      the `new` and `bestseller` labels, so a category with fewer photos than
      products would otherwise leave a placeholder in the shop window while the
