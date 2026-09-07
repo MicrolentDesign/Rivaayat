@@ -13,6 +13,9 @@ export const IMAGE_WIDTHS: Record<string, number[]> = {
   '/hero/h2': [640, 960, 1440],
   '/hero/h3-portrait': [480, 720, 960, 1200],
   '/hero/h3': [640, 960, 1440],
+  '/journal/four-months-on-a-loom-in-varanasi': [640, 960, 1280, 1536],
+  '/journal/how-to-read-a-jaali-placket': [640, 960, 1280, 1536],
+  '/journal/the-case-for-made-to-measure': [640, 960, 1280, 1536],
   '/product/k1': [360, 480, 600, 702],
   '/product/k2': [360, 480, 600, 702, 900],
   '/product/s1': [360, 480, 600, 702],
@@ -40,4 +43,12 @@ export const PRODUCT_IMAGES: Record<string, string[]> = {
    category without one falls back to a product photograph. */
 export const CATEGORY_IMAGES: Record<string, string> = {
 
+};
+
+/* Journal art, keyed by the slugified post *title* — name the file after
+   the headline and it lands on the right entry. */
+export const JOURNAL_IMAGES: Record<string, string> = {
+  'four-months-on-a-loom-in-varanasi': '/journal/four-months-on-a-loom-in-varanasi',
+  'how-to-read-a-jaali-placket': '/journal/how-to-read-a-jaali-placket',
+  'the-case-for-made-to-measure': '/journal/the-case-for-made-to-measure',
 };

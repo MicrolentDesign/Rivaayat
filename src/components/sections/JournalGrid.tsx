@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import { journal } from '@/data/products';
 import { SectionHead } from '@/components/primitives/SectionHead';
 import { Reveal } from '@/components/primitives/Reveal';
+import { Img } from '@/components/primitives/Img';
+import { journalArt } from '@/data/journalImages';
+import { SIZES } from '@/lib/image';
 import { formatDate } from '@/lib/utils';
 
 /* [CHA] "Blog posts" three-up. */
@@ -14,7 +17,9 @@ export function JournalGrid() {
           {journal.map((p, i) => (
             <Reveal key={p.slug} delay={i * 90}>
               <Link to={`/journal/${p.slug}`} className="group stack-md" style={{ display: 'block' }}>
-                <div className="media media-editorial media-zoom"><img src={p.image} alt="" loading="lazy" /></div>
+                <div className="media media-editorial media-zoom">
+                  <Img {...journalArt(p)} profile="journal" sizes={SIZES.third} alt="" />
+                </div>
                 <div className="stack-xs">
                   <p className="t-meta">{formatDate(p.date)} · {p.readMinutes} min read</p>
                   <h3 className="t-h3">{p.title}</h3>

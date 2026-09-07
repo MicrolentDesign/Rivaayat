@@ -59,6 +59,10 @@ const PROFILES = {
   /* Editorial band images. They render around 50vw inside a 4:3 or 4:5 box,
      so `cover` in CSS handles the shape and the pipeline leaves the framing
      alone — an automatic crop would fight whatever the photographer intended. */
+  /* Journal cards and article headers, rendered 4:3 by CSS `cover` — the
+     framing is left alone. Name the file after the post title: the resolver
+     matches the slugified *title*, not the URL slug. */
+  journal:  { widths: [640, 960, 1280, 1536],     quality: 80, fallbackWidth: 1280 },
   sections: { widths: [640, 960, 1280, 1536],     quality: 80, fallbackWidth: 1280 },
   default:  { widths: [640, 1024, 1600],          quality: 80, fallbackWidth: 1200 },
 };
@@ -234,6 +238,16 @@ async function run() {
   for (const list of Object.values(byCategory)) list.sort(natural);
 
   /* Category tiles: media/category/<slug>.<ext> */
+  /* Journal art: media/journal/<post title>.<ext>, keyed by slugified title. */
+  const journalArt = {};
+  for (const key of Object.keys(manifest)) {
+    if (!key.startsWith('journal/')) continue;
+    journalArt[key.slice('journal/'.length)] = `/${key}`;
+  }
+  const journalLines = Object.entries(journalArt)
+    .map(([k, base]) => `  '${k}': '${base}',`)
+    .join('\n');
+
   const categoryTiles = {};
   for (const key of Object.keys(manifest)) {
     if (!key.startsWith('category/')) continue;
@@ -261,7 +275,10 @@ async function run() {
     + `export const PRODUCT_IMAGES: Record<string, string[]> = {\n${productLines}\n};\n\n`
     + `/* Category tile art, from media/category/<slug>.<ext>. Optional — a\n`
     + `   category without one falls back to a product photograph. */\n`
-    + `export const CATEGORY_IMAGES: Record<string, string> = {\n${categoryLines}\n};\n`,
+    + `export const CATEGORY_IMAGES: Record<string, string> = {\n${categoryLines}\n};\n\n`
+    + `/* Journal art, keyed by the slugified post *title* — name the file after\n`
+    + `   the headline and it lands on the right entry. */\n`
+    + `export const JOURNAL_IMAGES: Record<string, string> = {\n${journalLines}\n};\n`,
   );
 
   if (Object.keys(byCategory).length) {

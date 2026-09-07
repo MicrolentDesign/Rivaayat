@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { journal } from '@/data/products';
 import { Reveal } from '@/components/primitives/Reveal';
+import { Img } from '@/components/primitives/Img';
+import { journalArt } from '@/data/journalImages';
+import { SIZES } from '@/lib/image';
 import { formatDate } from '@/lib/utils';
 
 export function JournalPage() {
@@ -17,7 +20,9 @@ export function JournalPage() {
       <section className="container section-lg">
         <Reveal>
           <Link to={`/journal/${lead.slug}`} className="group split" style={{ display: 'grid', marginBottom: 'var(--section-y-lg)' }}>
-            <div className="media media-editorial media-zoom"><img src={lead.image} alt="" /></div>
+            <div className="media media-editorial media-zoom">
+              <Img {...journalArt(lead)} profile="journal" sizes={SIZES.half} alt="" eager />
+            </div>
             <div className="stack-sm" style={{ alignSelf: 'center' }}>
               <p className="t-meta">{formatDate(lead.date)} · {lead.author} · {lead.readMinutes} min</p>
               <h2 className="t-display">{lead.title}</h2>
@@ -31,7 +36,9 @@ export function JournalPage() {
           {rest.map((p, i) => (
             <Reveal key={p.slug} delay={i * 90}>
               <Link to={`/journal/${p.slug}`} className="group stack-md" style={{ display: 'block' }}>
-                <div className="media media-editorial media-zoom"><img src={p.image} alt="" loading="lazy" /></div>
+                <div className="media media-editorial media-zoom">
+                  <Img {...journalArt(p)} profile="journal" sizes={SIZES.third} alt="" />
+                </div>
                 <div className="stack-xs">
                   <p className="t-meta">{formatDate(p.date)} · {p.readMinutes} min</p>
                   <h3 className="t-h3">{p.title}</h3>
