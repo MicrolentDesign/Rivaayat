@@ -22,7 +22,7 @@ export function CategoryTiles({ limit = 4 }: { limit?: number }) {
                 <div className="overlay-content overlay-bl" style={{ padding: '1.5rem' }}>
                   <p className="eyebrow" style={{ marginBottom: '0.4rem' }}>{c.count} pieces</p>
                   <h3 className="t-h2" style={{ color: 'var(--color-canvas)' }}>{c.name}</h3>
-                  <p className="t-sm" style={{ color: 'rgb(255 255 255 / 0.82)', maxWidth: '26ch', marginTop: '0.35rem' }}>{c.tagline}</p>
+                  <p className="t-sm tile-tagline" style={{ color: 'rgb(255 255 255 / 0.82)', maxWidth: '26ch', marginTop: '0.35rem' }}>{c.tagline}</p>
                 </div>
               </Link>
             </Reveal>

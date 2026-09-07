@@ -171,12 +171,6 @@ const squares = [
   ['journal-01', { w: 1200, h: 900, ground: P.bone,      accent: P.henna,    motif: 'butti',   glowFrom: '#F5ECE1', glowTo: '#CDB39C' }],
   ['journal-02', { w: 1200, h: 900, ground: P.alabaster, accent: P.indigo,   motif: 'ikat',    glowFrom: '#EFF1F4', glowTo: '#AEB8C4' }],
   ['journal-03', { w: 1200, h: 900, ground: P.clay,      accent: P.marigold, motif: 'suzani',  glowFrom: '#F4EADA', glowTo: '#CBB088' }],
-  ['social-01',  { w: 900,  h: 900, ground: P.bone,      accent: P.henna,    motif: 'kantha',  glowFrom: '#F5ECE2', glowTo: '#D0B69F' }],
-  ['social-02',  { w: 900,  h: 900, ground: P.alabaster, accent: P.marigold, motif: 'zari',    glowFrom: '#FAF3E4', glowTo: '#D9BE8D' }],
-  ['social-03',  { w: 900,  h: 900, ground: P.clay,      accent: P.indigo,   motif: 'jaali',   glowFrom: '#EBEDF0', glowTo: '#A9B4C0' }],
-  ['social-04',  { w: 900,  h: 900, ground: P.bone,      accent: P.moss,     motif: 'khadi',   glowFrom: '#F1F3ED', glowTo: '#BCC4B0' }],
-  ['social-05',  { w: 900,  h: 900, ground: P.alabaster, accent: P.plum,     motif: 'bandhani',glowFrom: '#F6F0F2', glowTo: '#C9B2BB' }],
-  ['social-06',  { w: 900,  h: 900, ground: P.bone,      accent: P.teal,     motif: 'ikat',    glowFrom: '#EEF3F2', glowTo: '#AFC3BF' }],
 ];
 
 let n = 0, count = 0;

@@ -10,7 +10,7 @@ export function JournalGrid() {
     <section className="section-lg">
       <div className="container">
         <SectionHead eyebrow="The Journal" title="From the workroom" link="/journal" linkLabel="All entries" />
-        <div className="grid-tiles">
+        <div className="grid-cards">
           {journal.map((p, i) => (
             <Reveal key={p.slug} delay={i * 90}>
               <Link to={`/journal/${p.slug}`} className="group stack-md" style={{ display: 'block' }}>

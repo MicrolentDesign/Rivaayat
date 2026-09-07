@@ -11,7 +11,6 @@ import { PromoTrio } from '@/components/sections/PromoTrio';
 import { ValueProps } from '@/components/sections/ValueProps';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { JournalGrid } from '@/components/sections/JournalGrid';
-import { SocialStrip } from '@/components/sections/SocialStrip';
 import { QuickView } from '@/components/product/QuickView';
 import { products, newArrivals, bestsellers, uniqueById } from '@/data/products';
 
@@ -100,7 +99,6 @@ export function HomePage() {
       <ValueProps />
       <Testimonials />
       <JournalGrid />
-      <SocialStrip />
 
       <QuickView product={quick} onClose={() => setQuick(null)} />
     </>

@@ -21,7 +21,7 @@ const CARDS = [
     src: '/img/editorial-02.svg',
     alt: 'Handwoven khadi cloth folded on a wooden table',
     title: 'Everyday handloom',
-    body: 'Khadi and chanderi kurtas you can wear on a Tuesday. From ₹8,900.',
+    body: 'Khadi and chanderi cut for a Tuesday rather than a wedding. From ₹8,900.',
     cta: 'Shop everyday',
     to: '/shop/kurta',
   },
@@ -40,17 +40,17 @@ export function PromoTrio() {
   return (
     <section className="section-lg">
       <div className="container">
-        <div className="grid-tiles">
+        <div className="grid-cards">
           {CARDS.map((c, i) => (
             <Reveal key={c.title} delay={i * 90}>
-              <Link to={c.to} className="group stack-md" style={{ display: 'block' }}>
+              <Link to={c.to} className="group promo-card stack-md">
                 <div className="media media-editorial media-zoom">
                   <Img base={c.base} src={c.src} profile="sections" sizes={SIZES.third} alt={c.alt} />
                 </div>
-                <div className="stack-xs">
+                <div className="stack-xs promo-card" style={{ gap: 0 }}>
                   <h3 className="t-h3">{c.title}</h3>
-                  <p className="t-sm" style={{ color: 'var(--color-ink-soft)' }}>{c.body}</p>
-                  <p className="eyebrow link-quiet" style={{ color: 'var(--color-ink)', marginTop: '0.5rem' }}>{c.cta}</p>
+                  <p className="t-sm promo-card__body" style={{ color: 'var(--color-ink-soft)', marginTop: '0.3rem' }}>{c.body}</p>
+                  <p className="eyebrow link-quiet promo-card__cta" style={{ color: 'var(--color-ink)' }}>{c.cta}</p>
                 </div>
               </Link>
             </Reveal>

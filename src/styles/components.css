@@ -594,6 +594,39 @@
 
 
 
+
+  /* ══ SECTION CARDS — consistent alignment ══════════════════════════════════
+     Cards in a row are one object, so the same element has to sit in the same
+     place on each. Two things break that when copy lengths differ:
+     a one-line body pulls its CTA up level with the next card's second line,
+     and a one-line tile tagline drops that tile's garment name a line lower
+     than its neighbours.
+
+     Reserving two lines fixes it at any width, which trimming the copy alone
+     cannot — the wrap point moves with the viewport. `lh` is the element's own
+     line box, so this tracks the type scale rather than guessing in rem. */
+
+  /* Three-up promo cards: body reserves two lines, CTA pinned to the bottom */
+  .promo-card { display: flex; flex-direction: column; height: 100%; }
+  .promo-card__body { min-height: calc(2lh); }
+  .promo-card__cta { margin-top: auto; padding-top: 0.5rem; }
+
+  /* Category tiles: tagline reserves two lines so the garment name aligns */
+  .tile-tagline { min-height: calc(2lh); }
+
+  /* Equal-height cells so a taller card cannot shorten its neighbours */
+  .grid-tiles > *, .grid-tiles-4 > *, .grid-cards > * { display: flex; }
+  .grid-tiles > * > *, .grid-tiles-4 > * > *, .grid-cards > * > * { flex: 1; min-width: 0; }
+
+  /* Copy-led cards go single file on phones. `.grid-tiles` stays two-up for
+     image-led category tiles, but a promo or journal card carrying a heading,
+     three or four lines of body and a CTA is 171px wide in that grid on a
+     390px screen — narrow enough that the copy does the reading, not the
+     picture. */
+  .grid-cards { display: grid; gap: var(--gutter); grid-template-columns: 1fr; }
+  @media (min-width: 640px) { .grid-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 900px) { .grid-cards { gap: var(--gutter-md); grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
   /* ══ HERO ══════════════════════════════════════════════════════════════════
      Height is deliberately shorter on phones. A 16:9 frame cropped to a tall
      portrait window shows less and less of its width the taller the window

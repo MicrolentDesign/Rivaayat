@@ -8,9 +8,9 @@ const img = (n: string) => `/img/${n}.svg`;
    are defined in navigation.ts, not here. */
 export const categories: Category[] = [
   { slug: 'sherwani',       name: 'Sherwani',        tagline: 'For the wedding you are standing at the front of.', image: img('cat-sherwani'),       count: 3 },
-  { slug: 'shalwar-kameez', name: 'Shalwar Kameez',  tagline: 'The everyday cut, made properly.',                  image: img('cat-shalwar-kameez'), count: 3 },
-  { slug: 'kurta',          name: 'Kurta',           tagline: 'Occasion kurtas with the churidar to match.',       image: img('cat-kurta'),          count: 3 },
-  { slug: 'waistcoat',      name: 'Waistcoat',       tagline: 'Worn over, or worn alone.',                         image: img('cat-waistcoat'),      count: 3 },
+  { slug: 'shalwar-kameez', name: 'Shalwar Kameez',  tagline: 'The everyday cut, made properly and made to you.',                  image: img('cat-shalwar-kameez'), count: 3 },
+  { slug: 'kurta',          name: 'Kurta',           tagline: 'Occasion kurtas, with the churidar cut to match.',       image: img('cat-kurta'),          count: 3 },
+  { slug: 'waistcoat',      name: 'Waistcoat',       tagline: 'Worn over a kurta, or worn entirely on its own.',                         image: img('cat-waistcoat'),      count: 3 },
 ];
 
 const CARE = [
@@ -212,11 +212,6 @@ export const journal: JournalPost[] = [
   { slug: 'four-months-on-a-loom', title: 'Four months on a loom in Varanasi', excerpt: 'What actually happens between the first thread and a finished kadhwa placket — and why the wait is the product.', date: '2026-08-14', author: 'Ira Sengupta', image: img('journal-01'), readMinutes: 7 },
   { slug: 'reading-a-jaali-placket', title: 'How to read a jaali placket', excerpt: 'Hand-cut or punched? Six things to look for before you pay sherwani money for either.', date: '2026-07-02', author: 'Devika Rao', image: img('journal-02'), readMinutes: 5 },
   { slug: 'the-case-for-made-to-measure', title: 'The case for made-to-measure', excerpt: 'Off-the-peg menswear was designed for a standard chest. Almost nobody has one.', date: '2026-05-28', author: 'Ira Sengupta', image: img('journal-03'), readMinutes: 6 },
-];
-
-export const socialImages = [
-  img('social-01'), img('social-02'), img('social-03'),
-  img('social-04'), img('social-05'), img('social-06'),
 ];
 
 /* ── selectors ─────────────────────────────────────────────── */
