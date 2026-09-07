@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { IconInstagram, IconPinterest, IconMail, IconRight } from '@/components/primitives/Icon';
 
 const COLUMNS = [
-  { title: 'Shop', links: [['Sherwani', '/shop/sherwani'], ['Bandhgala', '/shop/bandhgala'], ['Kurta Sets', '/shop/kurta'], ['Everyday', '/shop/everyday'], ['Accessories', '/shop/accessories'], ['The Archive', '/shop/archive']] },
+  { title: 'Shop', links: [['New Arrivals', '/shop/new'], ['Sherwani', '/shop/sherwani'], ['Shalwar Kameez', '/shop/shalwar-kameez'], ['Kurta', '/shop/kurta'], ['Waistcoat', '/shop/waistcoat'], ['Custom Orders', '/custom']] },
   { title: 'Atelier', links: [['Our story', '/atelier'], ['The artisans', '/atelier#artisans'], ['Made to measure', '/atelier#measure'], ['Journal', '/journal'], ['Book an appointment', '/atelier#appointment']] },
   { title: 'Care', links: [['Size guide', '/size-guide'], ['Shipping', '/shipping'], ['Returns & exchange', '/returns'], ['Garment care', '/care'], ['Contact', '/contact']] },
 ];

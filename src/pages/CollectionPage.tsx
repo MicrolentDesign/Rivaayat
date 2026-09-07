@@ -7,7 +7,7 @@ import { QuickView } from '@/components/product/QuickView';
 import { IconFilter, IconClose, IconCheck } from '@/components/primitives/Icon';
 import { Button } from '@/components/primitives/Button';
 import { useBodyLock } from '@/lib/useBodyLock';
-import { cx } from '@/lib/utils';
+
 
 type Sort = 'featured' | 'price-asc' | 'price-desc' | 'newest' | 'rating';
 const SORTS: [Sort, string][] = [
@@ -22,6 +22,13 @@ const PRICE_BANDS: [string, number, number][] = [
 export function CollectionPage() {
   const { slug = 'all' } = useParams();
   const category = categories.find((c) => c.slug === slug);
+  /* /shop/new is a view over the `new` label rather than a category, so it has
+     no entry in categories[] and needs its own heading and blurb. */
+  const isNew = slug === 'new';
+  const heading = isNew ? 'New arrivals' : (category?.name ?? 'The full collection');
+  const blurb = isNew
+    ? 'The most recent pieces off the frame and the loom.'
+    : (category?.tagline ?? 'Everything currently made, in stock or on the frame.');
   const [quick, setQuick] = useState<Product | null>(null);
   const [sort, setSort] = useState<Sort>('featured');
   const [bands, setBands] = useState<string[]>([]);
@@ -30,7 +37,9 @@ export function CollectionPage() {
   useBodyLock(filtersOpen);
 
   const list = useMemo(() => {
-    let out = slug === 'all' ? [...products] : products.filter((p) => p.category === slug);
+    let out = slug === 'all' ? [...products]
+            : slug === 'new' ? products.filter((p) => p.labels.includes('new'))
+            : products.filter((p) => p.category === slug);
     if (bands.length) {
       out = out.filter((p) => bands.some((b) => {
         const band = PRICE_BANDS.find(([l]) => l === b)!;
@@ -88,8 +97,11 @@ export function CollectionPage() {
       <fieldset className="filter-group">
         <legend className="field-label">Category</legend>
         <ul className="stack-xs" style={{ marginTop: '0.75rem' }}>
-          <li><Link to="/shop/all" className={cx('t-sm cluster', slug === 'all' && 'is-active')} style={{ gap: '0.5rem', color: slug === 'all' ? 'var(--color-ink)' : undefined }}>
+          <li><Link to="/shop/all" className="t-sm cluster" style={{ gap: '0.5rem', color: slug === 'all' ? 'var(--color-ink)' : undefined }}>
             {slug === 'all' && <IconCheck size={14} />} All pieces
+          </Link></li>
+          <li><Link to="/shop/new" className="t-sm cluster" style={{ gap: '0.5rem', color: isNew ? 'var(--color-ink)' : undefined }}>
+            {isNew && <IconCheck size={14} />} New arrivals
           </Link></li>
           {categories.map((c) => (
             <li key={c.slug}>
@@ -111,12 +123,10 @@ export function CollectionPage() {
       <header className="scheme-alabaster" style={{ paddingBlock: 'clamp(2.5rem, 6vw, 4.5rem)', borderBottom: '1px solid var(--color-line)' }}>
         <div className="container" style={{ textAlign: 'center' }}>
           <nav className="eyebrow" aria-label="Breadcrumb" style={{ marginBottom: '1rem' }}>
-            <Link to="/" className="link-quiet">Home</Link> <span aria-hidden="true">/</span> {category?.name ?? 'All pieces'}
+            <Link to="/" className="link-quiet">Home</Link> <span aria-hidden="true">/</span> {heading}
           </nav>
-          <h1 className="t-display">{category?.name ?? 'The full collection'}</h1>
-          <p className="t-lead measure" style={{ margin: '1rem auto 0' }}>
-            {category?.tagline ?? 'Everything currently made, in stock or on the frame.'}
-          </p>
+          <h1 className="t-display">{heading}</h1>
+          <p className="t-lead measure" style={{ margin: '1rem auto 0' }}>{blurb}</p>
         </div>
       </header>
 

@@ -6,19 +6,8 @@ import { useCart, cartCount } from '@/store/cart';
 import { useScrolled } from '@/lib/useScrolled';
 import { useBodyLock } from '@/lib/useBodyLock';
 import { categories } from '@/data/products';
+import { primaryNav as NAV, secondaryNav as NAV_RIGHT, allNav } from '@/data/navigation';
 import { cx } from '@/lib/utils';
-
-const NAV = [
-  { to: '/shop/sherwani', label: 'Sherwani' },
-  { to: '/shop/bandhgala', label: 'Bandhgala' },
-  { to: '/shop/kurta', label: 'Kurta Sets' },
-  { to: '/shop/accessories', label: 'Accessories' },
-  { to: '/shop/archive', label: 'Archive' },
-];
-const NAV_RIGHT = [
-  { to: '/atelier', label: 'The Atelier' },
-  { to: '/journal', label: 'Journal' },
-];
 
 export function Header({ overHero = false }: { overHero?: boolean }) {
   const scrolled = useScrolled(60);
@@ -39,12 +28,12 @@ export function Header({ overHero = false }: { overHero?: boolean }) {
               onMouseLeave={() => setMegaOpen(false)}>
         <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', gap: '1rem', minHeight: '4.75rem' }}>
           {/* left nav */}
-          <nav aria-label="Collections" className="cluster" style={{ gap: '1.75rem' }}>
+          <nav aria-label="Collections" className="cluster" style={{ gap: '1.35rem', flexWrap: 'nowrap' }}>
             <button className="icon-btn hide-lg" onClick={() => setMenuOpen(true)} aria-label="Open menu"><IconMenu /></button>
-            <span className="show-lg cluster" style={{ gap: '1.75rem' }}>
+            <span className="show-lg cluster" style={{ gap: '1.35rem', flexWrap: 'nowrap' }}>
               {NAV.map((n) => (
                 <NavLink key={n.to} to={n.to} className="nav-link"
-                         onMouseEnter={() => setMegaOpen(n.label === 'Sherwani' || n.label === 'Bandhgala')}>
+                         onMouseEnter={() => setMegaOpen(n.isCategory)}>
                   {n.label}
                 </NavLink>
               ))}
@@ -55,7 +44,7 @@ export function Header({ overHero = false }: { overHero?: boolean }) {
 
           {/* right */}
           <div className="cluster" style={{ justifyContent: 'flex-end', gap: '0.25rem' }}>
-            <span className="show-lg cluster" style={{ gap: '1.75rem', marginRight: '1rem' }}>
+            <span className="show-lg cluster" style={{ gap: '1.35rem', marginRight: '0.75rem', flexWrap: 'nowrap' }}>
               {NAV_RIGHT.map((n) => <NavLink key={n.to} to={n.to} className="nav-link">{n.label}</NavLink>)}
             </span>
             <Link to="/shop/all" className="icon-btn" aria-label="Search"><IconSearch /></Link>
@@ -118,7 +107,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         </div>
         <nav className="drawer__body">
           <ul className="stack">
-            {[...NAV, ...NAV_RIGHT].map((n) => (
+            {allNav.map((n) => (
               <li key={n.to} style={{ borderBottom: '1px solid var(--color-line)' }}>
                 <Link to={n.to} onClick={onClose}
                       className="t-h3" style={{ display: 'block', padding: '1rem 0' }}>{n.label}</Link>

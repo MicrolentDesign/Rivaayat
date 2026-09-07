@@ -11,10 +11,11 @@
       <stop offset="0" stop-color="#1A1714" stop-opacity="0.56"/>
       <stop offset="0.42" stop-color="#1A1714" stop-opacity="0.23"/>
       <stop offset="1" stop-color="#1A1714" stop-opacity="0.05"/>
-    </linearGradient><pattern id="m37" width="52" height="52" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-      <rect width="52" height="52" fill="none"/>
-      <g stroke="#5C3B4A" stroke-width="1.1" fill="none" opacity="0.4">
-        <rect x="6" y="6" width="40" height="40"/><rect x="17" y="17" width="18" height="18"/>
+    </linearGradient><pattern id="m37" width="64" height="56" patternUnits="userSpaceOnUse">
+      <g stroke="#5C3B4A" stroke-width="2.4" fill="none" opacity="0.42" stroke-linecap="square">
+        <path d="M0 40 L16 16 L32 40 L48 16 L64 40"/>
+        <path d="M0 12 L16 -12 L32 12 L48 -12 L64 12" opacity="0.55"/>
+        <path d="M0 68 L16 44 L32 68 L48 44 L64 68" opacity="0.55"/>
       </g></pattern>
   <filter id="n37" x="0" y="0" width="100%" height="100%">
     <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7" result="n"/>

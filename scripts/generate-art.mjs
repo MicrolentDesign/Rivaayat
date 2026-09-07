@@ -122,30 +122,30 @@ function make({ w, h, ground, accent, motif, glowFrom, glowTo, seed = 1, depth =
 
 const PRODUCT = { w: 900, h: 1200 };
 const products = [
-  ['sherwani-mehr',       { ...PRODUCT, ground: P.alabaster, accent: P.indigo,    motif: 'zari',     glowFrom: '#F2F3F5', glowTo: '#D3D8DE' }],
-  ['sherwani-mehr-alt',   { ...PRODUCT, ground: P.bone,      accent: P.indigoDeep,motif: 'khadi',    glowFrom: '#EFF1F3', glowTo: '#CFD6DD' }],
-  ['sherwani-daraab',     { ...PRODUCT, ground: P.bone,      accent: P.henna,     motif: 'suzani',   glowFrom: '#F7F1E8', glowTo: '#E3D6C6' }],
-  ['sherwani-daraab-alt', { ...PRODUCT, ground: P.alabaster, accent: P.hennaDeep, motif: 'butti',    glowFrom: '#FBF7F1', glowTo: '#E8DCCB' }],
-  ['bandhgala-shahzada',  { ...PRODUCT, ground: P.clay,      accent: P.plum,      motif: 'jaali',    glowFrom: '#EFE3D6', glowTo: '#D8C2B6' }],
-  ['bandhgala-shahzada-alt',{...PRODUCT, ground: P.bone,     accent: P.indigo,    motif: 'khadi',    glowFrom: '#EEF0F3', glowTo: '#CDD4DB' }],
-  ['jacket-parvaaz',      { ...PRODUCT, ground: P.bone,      accent: P.indigo,    motif: 'kantha',   glowFrom: '#F1F2F4', glowTo: '#CFD5DC' }],
-  ['jacket-parvaaz-alt',  { ...PRODUCT, ground: P.alabaster, accent: P.indigoDeep,motif: 'ikat',     glowFrom: '#F4F5F7', glowTo: '#D6DBE1' }],
-  ['waistcoat-meher',     { ...PRODUCT, ground: P.bone,      accent: P.marigold,  motif: 'kantha',   glowFrom: '#FAF3E6', glowTo: '#E7D3B2' }],
-  ['waistcoat-meher-alt', { ...PRODUCT, ground: P.clay,      accent: P.henna,     motif: 'zari',     glowFrom: '#F2E7DB', glowTo: '#DDC4B2' }],
-  ['kurta-raahat',        { ...PRODUCT, ground: P.alabaster, accent: P.moss,      motif: 'khadi',    glowFrom: '#F4F5F0', glowTo: '#DCE0D4' }],
-  ['kurta-raahat-alt',    { ...PRODUCT, ground: P.bone,      accent: P.moss,      motif: 'kantha',   glowFrom: '#F2F4EE', glowTo: '#D8DDCF' }],
-  ['kurta-gulzar',        { ...PRODUCT, ground: P.clay,      accent: P.henna,     motif: 'ikat',     glowFrom: '#F3E7DA', glowTo: '#DEC3AE' }],
-  ['kurta-gulzar-alt',    { ...PRODUCT, ground: P.bone,      accent: P.hennaDeep, motif: 'kantha',   glowFrom: '#F5EBE1', glowTo: '#E0CAB6' }],
-  ['kurta-zafar',         { ...PRODUCT, ground: P.bone,      accent: P.marigold,  motif: 'zari',     glowFrom: '#FBF4E4', glowTo: '#E9D5AE' }],
-  ['kurta-zafar-alt',     { ...PRODUCT, ground: P.alabaster, accent: P.marigold,  motif: 'butti',    glowFrom: '#FDF8EC', glowTo: '#EFDCBB' }],
-  ['kurta-noor',          { ...PRODUCT, ground: P.alabaster, accent: P.plum,      motif: 'butti',    glowFrom: '#F7F1F3', glowTo: '#DCC9D0' }],
-  ['kurta-noor-alt',      { ...PRODUCT, ground: P.bone,      accent: P.rose,      motif: 'suzani',   glowFrom: '#F8F0F0', glowTo: '#E0C7C9' }],
-  ['stole-firdaus',       { ...PRODUCT, ground: P.alabaster, accent: P.moss,      motif: 'ikat',     glowFrom: '#F3F5F0', glowTo: '#D9DFD2' }],
-  ['stole-firdaus-alt',   { ...PRODUCT, ground: P.bone,      accent: P.teal,      motif: 'khadi',    glowFrom: '#EFF3F2', glowTo: '#D3DDDA' }],
-  ['dupatta-shabnam',     { ...PRODUCT, ground: P.alabaster, accent: P.teal,      motif: 'jaali',    glowFrom: '#F0F4F3', glowTo: '#D2DEDB' }],
-  ['dupatta-shabnam-alt', { ...PRODUCT, ground: P.bone,      accent: P.teal,      motif: 'bandhani', glowFrom: '#EEF3F2', glowTo: '#CEDCD9' }],
-  ['achkan-aftab',        { ...PRODUCT, ground: P.clay,      accent: P.hennaDeep, motif: 'jaali',    glowFrom: '#F1E5D8', glowTo: '#D9C0AC' }],
-  ['achkan-aftab-alt',    { ...PRODUCT, ground: P.bone,      accent: P.marigold,  motif: 'bandhani', glowFrom: '#FAF3E5', glowTo: '#E6D2AF' }],
+  ['sherwani-mehr',        { ...PRODUCT, ground: P.alabaster, accent: P.indigo,    motif: 'zari',     glowFrom: '#F2F3F5', glowTo: '#D3D8DE' }],
+  ['sherwani-mehr-alt',    { ...PRODUCT, ground: P.bone,      accent: P.indigoDeep,motif: 'khadi',    glowFrom: '#EFF1F3', glowTo: '#CFD6DD' }],
+  ['sherwani-daraab',      { ...PRODUCT, ground: P.bone,      accent: P.henna,     motif: 'suzani',   glowFrom: '#F7F1E8', glowTo: '#E3D6C6' }],
+  ['sherwani-daraab-alt',  { ...PRODUCT, ground: P.alabaster, accent: P.hennaDeep, motif: 'butti',    glowFrom: '#FBF7F1', glowTo: '#E8DCCB' }],
+  ['sherwani-aftab',       { ...PRODUCT, ground: P.clay,      accent: P.hennaDeep, motif: 'jaali',    glowFrom: '#F1E5D8', glowTo: '#D9C0AC' }],
+  ['sherwani-aftab-alt',   { ...PRODUCT, ground: P.bone,      accent: P.marigold,  motif: 'bandhani', glowFrom: '#FAF3E5', glowTo: '#E6D2AF' }],
+  ['shalwar-sartaj',       { ...PRODUCT, ground: P.alabaster, accent: P.moss,      motif: 'khadi',    glowFrom: '#F4F5F0', glowTo: '#DCE0D4' }],
+  ['shalwar-sartaj-alt',   { ...PRODUCT, ground: P.bone,      accent: P.moss,      motif: 'kantha',   glowFrom: '#F2F4EE', glowTo: '#D8DDCF' }],
+  ['shalwar-nazm',         { ...PRODUCT, ground: P.clay,      accent: P.henna,     motif: 'ikat',     glowFrom: '#F3E7DA', glowTo: '#DEC3AE' }],
+  ['shalwar-nazm-alt',     { ...PRODUCT, ground: P.bone,      accent: P.hennaDeep, motif: 'kantha',   glowFrom: '#F5EBE1', glowTo: '#E0CAB6' }],
+  ['shalwar-rehan',        { ...PRODUCT, ground: P.alabaster, accent: P.teal,      motif: 'jaali',    glowFrom: '#F0F4F3', glowTo: '#D2DEDB' }],
+  ['shalwar-rehan-alt',    { ...PRODUCT, ground: P.bone,      accent: P.teal,      motif: 'bandhani', glowFrom: '#EEF3F2', glowTo: '#CEDCD9' }],
+  ['kurta-zafar',          { ...PRODUCT, ground: P.bone,      accent: P.marigold,  motif: 'zari',     glowFrom: '#FBF4E4', glowTo: '#E9D5AE' }],
+  ['kurta-zafar-alt',      { ...PRODUCT, ground: P.alabaster, accent: P.marigold,  motif: 'butti',    glowFrom: '#FDF8EC', glowTo: '#EFDCBB' }],
+  ['kurta-gulzar',         { ...PRODUCT, ground: P.clay,      accent: P.plum,      motif: 'butti',    glowFrom: '#F7F1F3', glowTo: '#DCC9D0' }],
+  ['kurta-gulzar-alt',     { ...PRODUCT, ground: P.bone,      accent: P.rose,      motif: 'suzani',   glowFrom: '#F8F0F0', glowTo: '#E0C7C9' }],
+  ['kurta-raahat',         { ...PRODUCT, ground: P.alabaster, accent: P.moss,      motif: 'kantha',   glowFrom: '#F3F5F0', glowTo: '#D9DFD2' }],
+  ['kurta-raahat-alt',     { ...PRODUCT, ground: P.bone,      accent: P.moss,      motif: 'khadi',    glowFrom: '#EFF3F2', glowTo: '#D3DDDA' }],
+  ['waistcoat-meher',      { ...PRODUCT, ground: P.bone,      accent: P.marigold,  motif: 'kantha',   glowFrom: '#FAF3E6', glowTo: '#E7D3B2' }],
+  ['waistcoat-meher-alt',  { ...PRODUCT, ground: P.clay,      accent: P.henna,     motif: 'zari',     glowFrom: '#F2E7DB', glowTo: '#DDC4B2' }],
+  ['waistcoat-parvaaz',    { ...PRODUCT, ground: P.bone,      accent: P.indigo,    motif: 'kantha',   glowFrom: '#F1F2F4', glowTo: '#CFD5DC' }],
+  ['waistcoat-parvaaz-alt',{ ...PRODUCT, ground: P.alabaster, accent: P.indigoDeep,motif: 'ikat',     glowFrom: '#F4F5F7', glowTo: '#D6DBE1' }],
+  ['waistcoat-shahzada',   { ...PRODUCT, ground: P.clay,      accent: P.plum,      motif: 'jaali',    glowFrom: '#EFE3D6', glowTo: '#D8C2B6' }],
+  ['waistcoat-shahzada-alt',{...PRODUCT, ground: P.bone,      accent: P.indigo,    motif: 'khadi',    glowFrom: '#EEF0F3', glowTo: '#CDD4DB' }],
 ];
 
 const wide = [
@@ -159,12 +159,12 @@ const wide = [
 ];
 
 const tiles = [
-  ['cat-sherwani',    { w: 1000, h: 1250, ground: P.clay,      accent: P.henna,     motif: 'suzani'  , glowFrom: '#EFE1D2', depth: 0.9, glowTo: '#6B5544' }],
-  ['cat-bandhgala',   { w: 1000, h: 1250, ground: P.alabaster, accent: P.indigo,    motif: 'khadi'   , glowFrom: '#EEF0F3', depth: 0.9, glowTo: '#4A5563' }],
-  ['cat-kurta',       { w: 1000, h: 1250, ground: P.bone,      accent: P.marigold,  motif: 'zari'    , glowFrom: '#FAF2E1', depth: 0.9, glowTo: '#8A6C3C' }],
-  ['cat-everyday',    { w: 1000, h: 1250, ground: P.bone,      accent: P.moss,      motif: 'kantha'  , glowFrom: '#F1F3EC', depth: 0.9, glowTo: '#646D57' }],
-  ['cat-accessories', { w: 1000, h: 1250, ground: P.alabaster, accent: P.teal,      motif: 'bandhani', glowFrom: '#EDF2F1', depth: 0.9, glowTo: '#4E625E' }],
-  ['cat-archive',     { w: 1000, h: 1250, ground: P.clay,      accent: P.plum,      motif: 'jaali'   , glowFrom: '#EFE6DF', depth: 0.9, glowTo: '#665059' }],
+  ['cat-sherwani',       { w: 1000, h: 1250, ground: P.clay,      accent: P.henna,    motif: 'suzani' , glowFrom: '#EFE1D2', depth: 0.9, glowTo: '#6B5544' }],
+  ['cat-shalwar-kameez', { w: 1000, h: 1250, ground: P.alabaster, accent: P.moss,     motif: 'khadi'  , glowFrom: '#F1F3EC', depth: 0.9, glowTo: '#646D57' }],
+  ['cat-kurta',          { w: 1000, h: 1250, ground: P.bone,      accent: P.marigold, motif: 'zari'   , glowFrom: '#FAF2E1', depth: 0.9, glowTo: '#8A6C3C' }],
+  ['cat-waistcoat',      { w: 1000, h: 1250, ground: P.alabaster, accent: P.indigo,   motif: 'jaali'  , glowFrom: '#EEF0F3', depth: 0.9, glowTo: '#4A5563' }],
+  ['cat-new',            { w: 1000, h: 1250, ground: P.bone,      accent: P.teal,     motif: 'bandhani',glowFrom: '#EDF2F1', depth: 0.9, glowTo: '#4E625E' }],
+  ['cat-custom',         { w: 1000, h: 1250, ground: P.clay,      accent: P.plum,     motif: 'ikat'   , glowFrom: '#EFE6DF', depth: 0.9, glowTo: '#665059' }],
 ];
 
 const squares = [

@@ -23,10 +23,10 @@
     <feBlend in2="SourceGraphic" mode="multiply"/>
   </filter>
   </defs>
-  <rect width="1000" height="1250" fill="#FAF8F4"/>
+  <rect width="1000" height="1250" fill="#F2EDE4"/>
   <rect width="1000" height="1250" fill="url(#g36)"/>
   <rect width="1000" height="1250" fill="url(#m36)"/>
   <rect width="1000" height="1250" fill="url(#v36)"/>
-  <rect width="1000" height="1250" filter="url(#n36)" fill="#FAF8F4" opacity="0.4"/>
+  <rect width="1000" height="1250" filter="url(#n36)" fill="#F2EDE4" opacity="0.4"/>
   <rect width="1000" height="1250" fill="url(#d36)"/>
 </svg>
