@@ -1,0 +1,215 @@
+/* ============================================================================
+   RIVAAYAT — DESIGN TOKENS
+   Single source of truth. Change the theme here and the whole site follows.
+
+   PROVENANCE — every value below is traced to one of the two client references:
+     [EOI]  echoesofindiastudio.com   — warm-neutral gallery minimalism,
+                                        near-black ink at 76% opacity,
+                                        stone hairline borders, 0 radius.
+     [CHA]  chantilly.myshopify.com   — Symmetry theme: ultra-light display
+                                        type at -0.04em tracking, uppercase
+                                        micro-labels at 0.08em, tinted
+                                        section "colour schemes", 1600px page.
+     [RVT]  Rivaayat adaptation       — the product is Indian couture, not
+                                        resort swimwear, so hues are warmed
+                                        and one heritage accent is introduced.
+   ========================================================================== */
+
+@theme static {
+  /* ══ 1. COLOUR ═══════════════════════════════════════════════════════════
+     Both references are functionally monochrome: a white canvas, a single
+     near-black ink, a warm stone hairline, and one accent used sparingly.
+     We keep that discipline and warm every neutral toward the textile.     */
+
+  /* — Ink. [EOI] rgb(3,3,2) · [CHA] #232323 · warmed for [RVT] — */
+  --color-ink:              #1A1714;   /* headings, buttons, footer ground  */
+  --color-ink-soft:         #4A443C;   /* secondary copy                    */
+  /* Muted was originally set by eye and measured 4.06:1 on white — below
+     WCAG AA for the 11px eyebrows and 12px meta that use it. Darkened until
+     it clears 4.5:1 on every ground in the scheme set, including clay
+     (4.76:1). This also tracks the references more closely than the first
+     pass did: [EOI] renders muted copy at 60% ink and [CHA] uses #5c5c5c —
+     both darker than the value we started with. */
+  --color-ink-muted:        #675F53;   /* meta, captions, eyebrows          */
+  --color-ink-faint:        #9A9081;   /* placeholders and disabled only —
+                                          exempt from AA, never body copy   */
+
+  /* Body copy renders ink at 76% — the exact [EOI] foreground treatment.   */
+  --color-body:             rgb(26 23 20 / 0.76);
+
+  /* — Canvas. [CHA] runs 3 schemes: #fff · #f7f7f7 · #efefef. Warmed. —    */
+  --color-canvas:           #FFFFFF;   /* scheme: default                   */
+  --color-alabaster:        #FAF8F4;   /* scheme: 1 — soft section ground   */
+  --color-bone:             #F2EDE4;   /* scheme: 2 — product-tile ground   */
+  --color-clay:             #E7DFD2;   /* scheme: 3 — editorial ground      */
+  --color-obsidian:         #1A1714;   /* scheme: dark — footer, drops      */
+
+  /* — Hairlines. [EOI] #D3CEC5 · [CHA] #C8C8C8. Warm stone wins. —        */
+  --color-line:             #DDD6CA;   /* default hairline                  */
+  --color-line-soft:        #EBE5DA;   /* on tinted grounds                 */
+  --color-line-strong:      #1A1714;   /* active/selected outline           */
+
+  /* — Accent. [CHA] --link-color #BF570A (burnt sienna). Deepened toward
+       madder/henna so it reads as dye, not as a "sale" orange. —          */
+  --color-accent:           #9C4A21;   /* links, sale price, stars, focus   */
+  --color-accent-hover:     #7E3A18;
+  --color-accent-tint:      #F6EDE6;   /* accent surface at 8%              */
+
+  /* — Heritage support. Used at ≤5% of any screen: rules, seals, motifs. — */
+  --color-marigold:         #C08A2E;
+  --color-indigo:           #2B3A4A;
+
+  /* — Status. Muted to sit inside the palette, never traffic-light. —      */
+  --color-success:          #3F6B4A;
+  --color-success-bg:       #EDF3EE;
+  --color-danger:           #9B3226;
+  --color-danger-bg:        #F8ECEA;
+  --color-notice:           #8A6A1F;
+  --color-notice-bg:        #F8F1E2;
+
+  /* — Inverse (on obsidian) — */
+  --color-on-dark:          #FAF8F4;
+  --color-on-dark-muted:    rgb(250 248 244 / 0.62);
+  --color-on-dark-line:     rgb(250 248 244 / 0.16);
+
+
+  /* ══ 2. TYPEFACES ════════════════════════════════════════════════════════
+     CLIENT-SPECIFIED, and they override the reference faces:
+       PRIME     — Calone, supplied by the client, self-hosted from
+                   /public/fonts/calone.otf. A geometric display sans:
+                   single weight (400), 214 glyphs, Latin only. Carries the
+                   wordmark and every heading.
+       SECONDARY — Manrope, variable 200–800. Body, UI, buttons, eyebrows,
+                   navigation, prices, and any non-Latin fallback.
+
+     Consequence for the reference treatment: [CHA]'s display signature was
+     Montserrat at *weight 200*. Calone ships one weight, so that airiness
+     cannot come from the stem. We reproduce it with tracking, size and
+     leading instead — see --tracking-display below — and disable synthesis
+     so no browser fakes a bold that the family does not have.
+
+     Fallbacks are metric-sympathetic so a failed webfont shifts layout as
+     little as possible.                                                     */
+  --font-display:  'Calone', 'Futura', 'Avenir Next', 'Century Gothic', 'Trebuchet MS', sans-serif;
+  --font-sans:     'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
+  /* Alias kept for any component still asking for a "serif" slot; it must
+     resolve to the brand voice, never to a stray system serif. */
+  --font-serif:    var(--font-display);
+
+
+  /* ══ 3. TYPE SCALE ═══════════════════════════════════════════════════════
+     [CHA] --super-large-text-size 60px / --larger 34px / --base 14px,
+     with 27px mobile ceilings. [EOI] h1 72px. We fluid-interpolate between
+     the two so the ceiling is EOI-scale on desktop and CHA-scale on phones. */
+  --text-hero:     clamp(2.125rem, 1rem + 4.1vw, 4.5rem);    /* 34 → 72px  */
+  --text-display:  clamp(1.75rem, 1.05rem + 2.9vw, 3.25rem); /* 28 → 52px  */
+  --text-h1:       clamp(1.625rem, 1.15rem + 1.9vw, 2.5rem); /* 26 → 40px  */
+  --text-h2:       clamp(1.375rem, 1.1rem + 1.2vw, 1.875rem);/* 22 → 30px  */
+  --text-h3:       clamp(1.25rem, 1.05rem + 0.8vw, 1.5rem);  /* 20 → 24px  */
+  --text-h4:       1.125rem;                                  /* 18px       */
+  --text-lead:     clamp(1rem, 0.95rem + 0.25vw, 1.125rem);   /* 16 → 18px  */
+  --text-body:     0.9375rem;                                 /* 15px       */
+  --text-sm:       0.875rem;                                  /* 14px [CHA] */
+  --text-xs:       0.75rem;                                   /* 12px [CHA] */
+  --text-2xs:      0.6875rem;                                 /* 11px [CHA] */
+
+  /* Tracking. [CHA] set headings at -0.04em, but that figure was tuned for a
+     200-weight geometric sans. Calone is a single-weight display face with
+     wider natural sidebearings, so the same value closes the counters up.
+     We keep a whisper of negative tracking at display sizes only, and let
+     everything below h2 sit at its natural fit.
+     Micro-labels keep [CHA]'s +0.08em buttons and push eyebrows to 0.18em. */
+  --tracking-display:  -0.012em;
+  --tracking-tight:    -0.006em;
+  --tracking-normal:   0em;
+  --tracking-label:    0.08em;
+  --tracking-eyebrow:  0.18em;
+
+  /* Leading. [CHA] --base-line-height 1.6 */
+  --leading-display:  1.04;
+  --leading-heading:  1.16;
+  --leading-snug:     1.35;
+  --leading-body:     1.6;
+  --leading-loose:    1.8;
+
+
+  /* ══ 4. SPACE & MEASURE ══════════════════════════════════════════════════
+     [CHA] --space-unit 4px · gutters 16/20/30 · section padding 50/80/110
+     · --page-container-width 1600px · --reading-container-width 720px      */
+  --space-unit:    0.25rem;
+  --gutter:        1rem;      /* mobile   [CHA] 16px */
+  --gutter-md:     1.25rem;   /* tablet   [CHA] 20px */
+  --gutter-lg:     1.875rem;  /* desktop  [CHA] 30px */
+
+  --section-y:       clamp(2.75rem, 1.5rem + 5vw, 3.125rem);  /* 44 → 50px  */
+  --section-y-lg:    clamp(3.75rem, 2rem + 7vw, 5rem);        /* 60 → 80px  */
+  --section-y-xl:    clamp(4.5rem,  2rem + 10vw, 6.875rem);   /* 72 → 110px */
+
+  --width-page:      100rem;    /* 1600px [CHA] */
+  --width-wide:      87.5rem;   /* 1400px       */
+  --width-content:   75rem;     /* 1200px       */
+  --width-reading:   45rem;     /*  720px [CHA] */
+  --width-narrow:    36rem;     /*  576px [EOI] --narrow-content-width      */
+
+
+  /* ══ 5. SHAPE ════════════════════════════════════════════════════════════
+     Both references are hard-edged: [CHA] --btn-border-radius 0,
+     --modal-border-radius 0, --jdgm-border-radius 0. Only colour/size
+     swatches round, at [CHA] 100px. We hold that line exactly.             */
+  --radius-none:    0;
+  --radius-input:   0;
+  --radius-card:    0;
+  --radius-pill:    9999px;   /* swatches & counters only */
+
+  --hairline:       1px;
+
+
+  /* ══ 6. ELEVATION ════════════════════════════════════════════════════════
+     [EOI] --shadow-drawer / --shadow-popover: 0 4px 20px @15%. Shadows are
+     otherwise absent from both sites — depth comes from hairlines.         */
+  --shadow-none:    none;
+  --shadow-drawer:  0 4px 30px rgb(26 23 20 / 0.14);
+  --shadow-popover: 0 4px 20px rgb(26 23 20 / 0.12);
+  --shadow-lift:    0 12px 32px -12px rgb(26 23 20 / 0.18);
+
+
+  /* ══ 7. MOTION ═══════════════════════════════════════════════════════════
+     [EOI] --hover-transition-duration .25s ease-out ·
+           --submenu-animation .36s cubic-bezier(.25,.1,.25,1) ·
+           --hover-subtle-zoom-amount 1.015 (we use 1.04 on product media,
+           which is [EOI]'s gallery behaviour on hover).                    */
+  --ease-out-quad:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-brand:     cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-exit:      cubic-bezier(0.4, 0, 1, 1);
+
+  --dur-fast:       160ms;
+  --dur-base:       250ms;   /* [EOI] .25s */
+  --dur-slow:       360ms;   /* [EOI] .36s */
+  --dur-editorial:  700ms;
+
+  --zoom-media:     1.04;
+  --lift-amount:    4px;     /* [EOI] --hover-lift-amount */
+
+
+  /* ══ 8. LAYER ════════════════════════════════════════════════════════════ */
+  --z-base:      0;
+  --z-sticky:    30;
+  --z-header:    40;
+  --z-dropdown:  50;
+  --z-overlay:   60;
+  --z-drawer:    70;
+  --z-modal:     80;
+  --z-toast:     90;
+
+
+  /* ══ 9. MEDIA ════════════════════════════════════════════════════════════
+     [EOI] product media is portrait 3:4; [CHA] uses 4:5 on cards and a
+     --product-block-blend-bg #efefef with `darken` blending so cut-out
+     product shots melt into the tile. We reproduce that with --color-bone. */
+  --ratio-product:   3 / 4;
+  --ratio-portrait:  4 / 5;
+  --ratio-editorial: 4 / 3;
+  --ratio-wide:      16 / 9;
+  --ratio-hero:      16 / 10;
+  --blend-product:   darken;
+}

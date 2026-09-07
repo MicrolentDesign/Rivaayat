@@ -1,0 +1,124 @@
+/* ── Calone — client's prime face, self-hosted. Single weight (400). ──────
+   `font-display: swap` renders Manrope's fallback first rather than blocking;
+   `size-adjust` is intentionally omitted because Calone and the serif
+   fallbacks already sit close in x-height.                               */
+@font-face {
+  font-family: 'Calone';
+  src: url('/fonts/calone.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================================
+   RIVAAYAT — BASE LAYER
+   Element defaults, typography primitives, layout containers.
+   ========================================================================== */
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;                       /* [CHA] */
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-canvas);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);            /* [CHA] 1.6 */
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;   /* `hidden` would promote body to a scroll container */
+  }
+  body[data-scroll-locked] { overflow: hidden; }
+
+  /* Headings: [CHA] Montserrat 200 @ -0.04em, sentence case, ink at 100%. */
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;              /* Calone ships one weight */
+    font-synthesis: none;          /* never let a browser fake a bold/light */
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-heading);
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+  h1 { font-size: var(--text-h1); }
+  h2 { font-size: var(--text-h2); }
+  h3 { font-size: var(--text-h3); letter-spacing: var(--tracking-tight); }
+  h4 { font-size: var(--text-h4); letter-spacing: var(--tracking-tight); }
+  /* h5/h6 drop to the secondary face — Calone is too characterful at label size */
+  h5, h6 { font-family: var(--font-sans); font-size: var(--text-sm); font-weight: 600; letter-spacing: var(--tracking-normal); }
+
+  p { margin: 0; text-wrap: pretty; }
+
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, summary:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  img, svg, video { display: block; max-width: 100%; height: auto; }
+
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  input, select, textarea { font: inherit; color: inherit; }
+  ::placeholder { color: var(--color-ink-faint); opacity: 1; }
+
+  hr { border: 0; border-top: var(--hairline) solid var(--color-line); margin: 0; }
+
+  ul, ol { margin: 0; padding: 0; list-style: none; }
+
+  ::selection { background: var(--color-ink); color: var(--color-canvas); }
+
+  /* Native marker removal for <details> disclosures used in filters/accordions */
+  summary { list-style: none; cursor: pointer; }
+  summary::-webkit-details-marker { display: none; }
+}
+
+@layer components {
+  /* ══ CONTAINERS — [CHA] 1600 page / 720 reading, [EOI] 576 narrow ══ */
+  .container      { width: 100%; max-width: var(--width-page);    margin-inline: auto; padding-inline: var(--gutter); }
+  .container-wide { width: 100%; max-width: var(--width-wide);    margin-inline: auto; padding-inline: var(--gutter); }
+  .container-content { width: 100%; max-width: var(--width-content); margin-inline: auto; padding-inline: var(--gutter); }
+  .container-reading { width: 100%; max-width: var(--width-reading); margin-inline: auto; padding-inline: var(--gutter); }
+  .container-narrow  { width: 100%; max-width: var(--width-narrow);  margin-inline: auto; padding-inline: var(--gutter); }
+  .container-flush   { width: 100%; max-width: 100%; padding-inline: var(--gutter); }
+
+  @media (min-width: 768px)  { .container, .container-wide, .container-content, .container-reading, .container-narrow, .container-flush { padding-inline: var(--gutter-md); } }
+  @media (min-width: 1024px) { .container, .container-wide, .container-content, .container-reading, .container-narrow, .container-flush { padding-inline: var(--gutter-lg); } }
+
+  /* ══ SECTION RHYTHM — [CHA] 50 / 80 / 110px ══ */
+  .section    { padding-block: var(--section-y); }
+  .section-lg { padding-block: var(--section-y-lg); }
+  .section-xl { padding-block: var(--section-y-xl); }
+  .section-t  { padding-top: var(--section-y-lg); }
+  .section-b  { padding-bottom: var(--section-y-lg); }
+
+  /* ══ COLOUR SCHEMES — [CHA] scheme system, warmed ══ */
+  .scheme-default   { background: var(--color-canvas);    color: var(--color-body); }
+  .scheme-alabaster { background: var(--color-alabaster); color: var(--color-body); }
+  .scheme-bone      { background: var(--color-bone);      color: var(--color-body); }
+  .scheme-clay      { background: var(--color-clay);      color: var(--color-body); }
+  .scheme-dark      { background: var(--color-obsidian);  color: var(--color-on-dark-muted); }
+  .scheme-dark :is(h1,h2,h3,h4,h5,h6) { color: var(--color-on-dark); }
+  .scheme-dark .eyebrow { color: var(--color-on-dark-muted); }
+  .scheme-dark hr, .scheme-dark .rule { border-color: var(--color-on-dark-line); }
+}
