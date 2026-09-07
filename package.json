@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "art": "node scripts/generate-art.mjs",
     "images": "node scripts/optimise-images.mjs",
-    "prebuild": "node scripts/optimise-images.mjs"
+    "prebuild": "node scripts/optimise-images.mjs",
+    "deploy": "bash scripts/deploy.sh"
   },
   "dependencies": {
     "react": "^19.2.0",

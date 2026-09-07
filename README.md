@@ -17,9 +17,20 @@ npm run art      # regenerate the placeholder artwork in public/img/
 
 ## Deployment
 
-Pushing to `main` builds and publishes to GitHub Pages via
-`.github/workflows/deploy.yml`. The repo needs **Settings → Pages → Source =
-GitHub Actions** set once; after that every push deploys.
+```bash
+npm run deploy
+```
+
+Builds and force-pushes `dist/` to the `gh-pages` branch. The repo needs
+**Settings → Pages → Source = Deploy from a branch → `gh-pages` / root** set
+once; after that every `npm run deploy` publishes.
+
+`docs/github-pages-workflow.yml` is the GitHub Actions version, which deploys
+automatically on every push to `main` instead of on command. It is not in
+`.github/workflows/` because adding a workflow file needs a token with the
+`workflow` scope. To switch: grant that scope (or paste the file in through
+GitHub's web editor), move it to `.github/workflows/deploy.yml`, and set
+Pages Source back to **GitHub Actions**.
 
 Three things make a project page work that a root deploy would not need:
 
