@@ -29,7 +29,15 @@ const OUT = path.join(ROOT, 'public');
    shots sit in a grid column and never do. Generating widths a source cannot
    fill is just upscaling, so anything wider than the original is skipped. */
 const PROFILES = {
-  hero:    { widths: [640, 960, 1440, 1920, 2560], quality: 78, fallbackWidth: 1600 },
+  /* `portrait` makes the hero profile emit a second, phone-shaped crop from the
+     same landscape master. A 16:9 frame cropped to a tall phone window keeps
+     about a third of its width, so without this the choice is empty sky or a
+     model cut in half. sharp's attention strategy picks the crop window by
+     looking for the busiest region, which on a figure-against-landscape shot is
+     the figure. Supplying your own `<name>-portrait.jpg` overrides it — a crop a
+     human chose always wins. */
+  hero:    { widths: [640, 960, 1440, 1920, 2560], quality: 78, fallbackWidth: 1600,
+             portrait: { ratio: 4 / 5, widths: [480, 720, 960, 1200] } },
   product: { widths: [480, 720, 1080, 1440],       quality: 82, fallbackWidth: 1080 },
   default: { widths: [640, 1024, 1600],            quality: 80, fallbackWidth: 1200 },
 };
@@ -106,8 +114,43 @@ async function run() {
       wrote++;
     }
 
+    /* auto portrait crop, unless this file IS one or a manual one exists */
+    let portraitNote = '';
+    if (profile.portrait && !name.endsWith('-portrait')) {
+      const manual = files.some((f) => {
+        const b = path.basename(f, path.extname(f));
+        return path.dirname(path.relative(SRC, f)) === dir && b === `${name}-portrait`;
+      });
+      if (manual) {
+        portraitNote = ' (manual portrait supplied)';
+      } else {
+        const pWidths = profile.portrait.widths.filter((w) => w <= srcWidth);
+        for (const w of pWidths) {
+          const h = Math.round(w / profile.portrait.ratio);
+          const dest = path.join(outDir, `${name}-portrait-${w}.webp`);
+          if (await newerThan(dest, file)) { skipped++; outBytes += (await stat(dest)).size; continue; }
+          await sharp(file)
+            .resize({ width: w, height: h, fit: 'cover', position: sharp.strategy.attention })
+            .webp({ quality: profile.quality, effort: 5 })
+            .toFile(dest);
+          wrote++;
+          outBytes += (await stat(dest)).size;
+        }
+        const pFallback = path.join(outDir, `${name}-portrait.jpg`);
+        if (!(await newerThan(pFallback, file))) {
+          const w = Math.min(1200, srcWidth);
+          await sharp(file)
+            .resize({ width: w, height: Math.round(w / profile.portrait.ratio), fit: 'cover', position: sharp.strategy.attention })
+            .jpeg({ quality: 80, progressive: true, mozjpeg: true })
+            .toFile(pFallback);
+          wrote++;
+        }
+        portraitNote = ` + ${pWidths.length} portrait`;
+      }
+    }
+
     manifest[`${dir}/${name}`.replace(/^\.\//, '')] = entry;
-    console.log(`  ${rel}  ${srcWidth}px  →  ${widths.length} webp + jpg`);
+    console.log(`  ${rel}  ${srcWidth}px  →  ${widths.length} webp + jpg${portraitNote}`);
   }
 
   await writeFile(path.join(OUT, 'images.json'), JSON.stringify(manifest, null, 2));

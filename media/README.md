@@ -36,25 +36,31 @@ detail.
   away detail the WebP encoder could have used. Compress once, here.
 - **sRGB.** A wide-gamut file will look flat in some browsers.
 
-## Hero images need a second crop
+## Hero phone crops are automatic
 
 The hero is full-bleed and nearly full-height. A 16:9 frame cropped to a
-390 × 640 phone keeps barely a third of its width, so a landscape master alone
-either shows empty sky or cuts the model out.
+390 × 640 phone keeps barely a third of its width, so a landscape master on its
+own shows either empty sky or a model cut in half.
 
-Export each hero twice:
+You don't have to do anything about it. For every file in `hero/`, the pipeline
+also emits a **4:5 portrait crop**, chosen with sharp's attention strategy —
+it picks the window over the busiest region of the frame, which on a
+figure-against-landscape shot is the figure.
 
-| File | Ratio | Used |
-|---|---|---|
-| `hero/terrace.jpg` | 16:9 landscape | tablet and desktop |
-| `hero/terrace-portrait.jpg` | 4:5 or 3:4 portrait | under 768px |
+```
+media/hero/terrace.jpg  →  public/hero/terrace-{640…2560}.webp        (landscape)
+                           public/hero/terrace-portrait-{480…1200}.webp (phones)
+                           public/hero/terrace.jpg, terrace-portrait.jpg
+```
 
-For the portrait crop, keep the model and enough landscape to place him — and
-leave the lower-left third reasonably plain, because the headline sits there.
+**To override it**, drop your own `hero/terrace-portrait.jpg` beside the master.
+A crop a human chose always beats an automatic one — keep the model, keep enough
+landscape to place him, and leave the lower-left third reasonably plain, because
+the headline sits there. The pipeline detects the manual file and skips
+generating its own.
 
-Until a portrait file exists the hero falls back to a per-slide focal point
-(`focal` in `src/data/hero.ts`), which pulls the crop onto the model. That
-works, but a crop a human chose is always better.
+`focal` in `src/data/hero.ts` is the third line of defence: a per-slide
+`object-position` used when a crop still has to happen in the browser.
 
 ## Generated files are not committed
 
