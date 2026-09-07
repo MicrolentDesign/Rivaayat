@@ -3,8 +3,8 @@ import { Reveal } from '@/components/primitives/Reveal';
 
 /* [CHA] three-up promo cards ("Summer shop / The dream bikini / Gift Cards"). */
 const CARDS = [
-  { image: '/img/editorial-01.svg', title: 'Made to measure', body: 'Send us twelve numbers, or come in and we will take them. Six weeks either way.', cta: 'Start a commission', to: '/atelier#measure' },
-  { image: '/img/editorial-02.svg', title: 'Everyday handloom', body: 'Khadi, chanderi and mul that you can wear on a Tuesday. From ₹8,900.', cta: 'Shop everyday', to: '/shop/everyday' },
+  { image: '/img/editorial-01.svg', title: 'Made to measure', body: 'Send us nine numbers, or come in and we will take them. Six weeks either way.', cta: 'Start a commission', to: '/atelier#measure' },
+  { image: '/img/editorial-02.svg', title: 'Everyday handloom', body: 'Khadi and chanderi kurtas you can wear on a Tuesday. From ₹8,900.', cta: 'Shop everyday', to: '/shop/everyday' },
   { image: '/img/editorial-03.svg', title: 'The gift card', body: 'For the wedding you were invited to and the outfit nobody can choose for them.', cta: 'Buy a gift card', to: '/gift-cards' },
 ];
 

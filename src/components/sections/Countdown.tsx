@@ -27,7 +27,7 @@ export function Countdown() {
         <p className="eyebrow">The winter wedding calendar</p>
         <h2 className="t-display" style={{ margin: '0.75rem 0 0.5rem' }}>Closes for new commissions in</h2>
         <p className="t-lead measure" style={{ margin: '0 auto' }}>
-          Bridal takes ninety days on the frame. To wear it in December, the order has to be in before this clock runs out.
+          A sherwani takes ninety days on the frame. To wear it in December, the order has to be in before this clock runs out.
         </p>
         <div className="cluster" style={{ justifyContent: 'center', gap: 'clamp(1.5rem, 5vw, 3.5rem)', margin: '2.5rem 0' }}>
           {cells.map(([label, value]) => (
@@ -39,7 +39,7 @@ export function Countdown() {
             </div>
           ))}
         </div>
-        <ButtonLink to="/atelier#appointment">Book a bridal appointment</ButtonLink>
+        <ButtonLink to="/atelier#appointment">Book a fitting</ButtonLink>
       </div>
     </section>
   );

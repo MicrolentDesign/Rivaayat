@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { IconInstagram, IconPinterest, IconMail, IconRight } from '@/components/primitives/Icon';
 
 const COLUMNS = [
-  { title: 'Shop', links: [['Bridal', '/shop/bridal'], ['Festive', '/shop/festive'], ['Menswear', '/shop/menswear'], ['Everyday', '/shop/everyday'], ['Accessories', '/shop/accessories'], ['The Archive', '/shop/archive']] },
+  { title: 'Shop', links: [['Sherwani', '/shop/sherwani'], ['Bandhgala', '/shop/bandhgala'], ['Kurta Sets', '/shop/kurta'], ['Everyday', '/shop/everyday'], ['Accessories', '/shop/accessories'], ['The Archive', '/shop/archive']] },
   { title: 'Atelier', links: [['Our story', '/atelier'], ['The artisans', '/atelier#artisans'], ['Made to measure', '/atelier#measure'], ['Journal', '/journal'], ['Book an appointment', '/atelier#appointment']] },
   { title: 'Care', links: [['Size guide', '/size-guide'], ['Shipping', '/shipping'], ['Returns & exchange', '/returns'], ['Garment care', '/care'], ['Contact', '/contact']] },
 ];
@@ -49,7 +49,7 @@ export function Footer() {
               <p className="wordmark__sub" style={{ marginTop: 6, color: 'var(--color-on-dark-muted)' }}>Atelier · Est. 1974</p>
             </div>
             <p className="t-sm" style={{ color: 'var(--color-on-dark-muted)', maxWidth: '30ch' }}>
-              A couture house working with seventy-one artisan families across eight Indian states.
+              A menswear couture house working with seventy-one artisan families across eight Indian states.
             </p>
             <div className="cluster" style={{ gap: '0.5rem', color: 'var(--color-on-dark)' }}>
               <a href="https://instagram.com" className="icon-btn" aria-label="Instagram"><IconInstagram /></a>

@@ -1,7 +1,8 @@
 # Rivaayat
 
-An ecommerce storefront for a couture clothing house, built on a design system
-derived from the two client references.
+An ecommerce storefront for a **menswear** couture house — sherwanis,
+bandhgalas, kurta sets and accessories — built on a design system derived from
+the two client references.
 
 ```bash
 npm install
@@ -100,7 +101,7 @@ src/
     layout/           Header, Footer, CartDrawer, AnnouncementBar, Layout
     sections/         the 13-band homepage library (see below)
   pages/              Home, Collection, Product, Atelier, Journal, Wishlist,
-                      DesignSystem, NotFound
+                      NotFound
   data/               types + catalogue (12 products, 6 categories, 3 posts)
   store/cart.ts       Zustand cart + wishlist, persisted to localStorage
   lib/                utils, useReveal, useScrolled, useBodyLock
@@ -113,12 +114,12 @@ scripts/
 Each band maps to a section on one of the two references and can be reordered
 or dropped without touching any other:
 
-`Hero` (Chantilly slideshow) · `Marquee` (EOI statement band) · `LookbookDuo`
-(Chantilly dual promo) · `FeaturedRail` (Trending Styles carousel) ·
-`EditorialSplit` (image + copy feature) · `CategoryTiles` (EOI Shop the Look) ·
-`Manifesto` (Chantilly brand quote) · `Countdown` · `PromoTrio` (three-up
-cards) · `ValueProps` (Our Values) · `Testimonials` · `JournalGrid` (Blog
-posts) · `SocialStrip` (Instagram footer).
+`Hero` (Chantilly slideshow) · `Marquee` (EOI statement band) · `FeaturedRail`
+(Trending Styles carousel) · `EditorialSplit` (image + copy feature) ·
+`CategoryTiles` (EOI Shop the Look) · `Manifesto` (Chantilly brand quote) ·
+`Countdown` · `PromoTrio` (three-up cards) · `ValueProps` (Our Values) ·
+`Testimonials` · `JournalGrid` (Blog posts) · `SocialStrip` (Instagram
+footer).
 
 ---
 
@@ -143,8 +144,8 @@ nothing else. `static` is required — a plain `@theme` makes Tailwind v4
 tree-shake tokens nothing references yet, and they silently resolve to nothing
 the first time a component asks for one.
 
-`/design-system` is a live reference for the whole system, reading its values
-from the CSS at runtime so it can never drift from the real theme.
+The design system is documented in [DESIGN-SYSTEM.md](DESIGN-SYSTEM.md). It no
+longer ships as a page on the site.
 
 ---
 
@@ -182,6 +183,14 @@ To swap in real photography, replace the paths in `src/data/products.ts` —
 no component changes needed. Shoot product at 3:4 and editorial at 4:3.
 
 ---
+
+## Catalogue
+
+Menswear only. Six categories — Sherwani, Bandhgala, Kurta Sets, Everyday,
+Accessories, The Archive — and twelve pieces in `src/data/products.ts`. Sizing
+runs on chest measurements (36–46) plus a made-to-measure option, except where
+a piece is genuinely one-size (stoles, dupattas) or S–XL (unstructured
+jackets).
 
 ## Not built yet
 

@@ -43,7 +43,7 @@ export interface Product {
 }
 
 export type CategorySlug =
-  | 'bridal' | 'festive' | 'menswear' | 'everyday' | 'accessories' | 'archive';
+  | 'sherwani' | 'bandhgala' | 'kurta' | 'everyday' | 'accessories' | 'archive';
 
 export interface Category {
   slug: CategorySlug;

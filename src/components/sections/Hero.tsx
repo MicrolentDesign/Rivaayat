@@ -5,8 +5,8 @@ import { cx } from '@/lib/utils';
 /* Hero slideshow — [CHA] eyebrow / ultra-light display line / uppercase CTA,
    over full-bleed imagery with the [CHA] --image-overlay scrim.           */
 const SLIDES = [
-  { image: '/img/hero-01.svg', eyebrow: 'Mehtab · Autumn Winter 2026', title: 'Cloth that remembers whose hands made it.', cta: 'Enter the collection', to: '/shop/festive' },
-  { image: '/img/hero-02.svg', eyebrow: 'Bridal, by appointment', title: 'Ninety days. One lehenga. No shortcuts.', cta: 'Book a fitting', to: '/shop/bridal' },
+  { image: '/img/hero-01.svg', eyebrow: 'Mehtab · Autumn Winter 2026', title: 'Cloth that remembers whose hands made it.', cta: 'Enter the collection', to: '/shop/sherwani' },
+  { image: '/img/hero-02.svg', eyebrow: 'For the groom, by appointment', title: 'Ninety days. One sherwani. No shortcuts.', cta: 'Book a fitting', to: '/shop/sherwani' },
   { image: '/img/hero-03.svg', eyebrow: 'The Archive', title: 'One of one, and never remade.', cta: 'See what remains', to: '/shop/archive' },
 ];
 

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import type { Product } from '@/data/types';
 import { Hero } from '@/components/sections/Hero';
 import { Marquee } from '@/components/sections/Marquee';
-import { LookbookDuo } from '@/components/sections/LookbookDuo';
 import { CategoryTiles } from '@/components/sections/CategoryTiles';
 import { FeaturedRail } from '@/components/sections/FeaturedRail';
 import { EditorialSplit } from '@/components/sections/EditorialSplit';
@@ -30,8 +29,6 @@ export function HomePage() {
         'Seventy-one artisan families',
       ]} />
 
-      <LookbookDuo />
-
       <FeaturedRail
         eyebrow="Introducing"
         title="New arrivals"
@@ -48,7 +45,7 @@ export function HomePage() {
           'Hand-embroidered by people who have never rushed a stitch. Suzani vines, marigold suns and jaali arches worked into cloth that was always going to end up yours.',
           'Cut for the ones who keep things. From a pit loom in Kutch to wherever you are wearing it next — and then, with luck, to whoever you hand it down to.',
         ]}
-        cta="Shop the collection" to="/shop/festive"
+        cta="Shop the collection" to="/shop/sherwani"
       />
 
       <CategoryTiles />

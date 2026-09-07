@@ -9,16 +9,15 @@ import { categories } from '@/data/products';
 import { cx } from '@/lib/utils';
 
 const NAV = [
-  { to: '/shop/bridal', label: 'Bridal' },
-  { to: '/shop/festive', label: 'Festive' },
-  { to: '/shop/menswear', label: 'Menswear' },
+  { to: '/shop/sherwani', label: 'Sherwani' },
+  { to: '/shop/bandhgala', label: 'Bandhgala' },
+  { to: '/shop/kurta', label: 'Kurta Sets' },
   { to: '/shop/accessories', label: 'Accessories' },
   { to: '/shop/archive', label: 'Archive' },
 ];
 const NAV_RIGHT = [
   { to: '/atelier', label: 'The Atelier' },
   { to: '/journal', label: 'Journal' },
-  { to: '/design-system', label: 'System' },
 ];
 
 export function Header({ overHero = false }: { overHero?: boolean }) {
@@ -45,7 +44,7 @@ export function Header({ overHero = false }: { overHero?: boolean }) {
             <span className="show-lg cluster" style={{ gap: '1.75rem' }}>
               {NAV.map((n) => (
                 <NavLink key={n.to} to={n.to} className="nav-link"
-                         onMouseEnter={() => setMegaOpen(n.label === 'Bridal' || n.label === 'Festive')}>
+                         onMouseEnter={() => setMegaOpen(n.label === 'Sherwani' || n.label === 'Bandhgala')}>
                   {n.label}
                 </NavLink>
               ))}

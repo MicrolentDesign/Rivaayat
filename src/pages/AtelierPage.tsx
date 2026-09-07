@@ -7,9 +7,9 @@ import { SectionHead } from '@/components/primitives/SectionHead';
 import { Reveal } from '@/components/primitives/Reveal';
 
 const STEPS = [
-  ['01', 'The measurements', 'Twelve numbers, taken here or sent from wherever you are. There is a video that walks you through it and a person who will get on a call if it does not.'],
+  ['01', 'The measurements', 'Nine numbers, taken here or sent from wherever you are. There is a video that walks you through it and a person who will get on a call if it does not.'],
   ['02', 'The toile', 'A cotton mock-up, cut to your numbers and photographed on a form. You see it before a single metre of silk is touched.'],
-  ['03', 'The frame', 'Embroidery goes on a wooden frame and stays there for as long as it takes. Six weeks for a kurta, ninety days for bridal.'],
+  ['03', 'The frame', 'Embroidery goes on a wooden frame and stays there for as long as it takes. Six weeks for a kurta, ninety days for a sherwani.'],
   ['04', 'The finish', 'Hand-rolled edges, hidden seams, a final press. Then the muslin bag, the order card, and the names of everyone who touched it.'],
 ];
 
@@ -46,7 +46,7 @@ export function AtelierPage() {
         eyebrow="How a piece is made"
         title="Nothing here is finished in a week."
         body={[
-          'Every commission runs the same four stages, whether it is an ₹8,900 kurta or a bridal lehenga that takes three months.',
+          'Every commission runs the same four stages, whether it is an ₹8,900 kurta or a sherwani that takes three months.',
           'We tell you which stage you are at, by name, with a photograph. Nobody has to email us to ask.',
         ]}
         scheme="scheme-alabaster"
@@ -98,8 +98,8 @@ export function AtelierPage() {
               <div>
                 <label className="field-label" htmlFor="ty">What are you after</label>
                 <select id="ty" className="select">
-                  <option>Bridal commission</option><option>Festive, made to measure</option>
-                  <option>Menswear</option><option>Alteration of an existing piece</option>
+                  <option>Sherwani commission</option><option>Bandhgala or suiting</option>
+                  <option>Kurta sets</option><option>Alteration of an existing piece</option>
                 </select>
               </div>
               <div><label className="field-label" htmlFor="ms">Anything we should know</label><textarea id="ms" className="textarea" placeholder="The date, the city, the piece you have in mind…" /></div>

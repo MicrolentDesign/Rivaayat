@@ -5,7 +5,7 @@ import type { ComponentType } from 'react';
 /* [CHA] "Our values" three-column text band, extended to a six-cell service grid. */
 const ITEMS: { Icon: ComponentType<{ size?: number }>; title: string; body: string }[] = [
   { Icon: IconNeedle, title: 'Made by seventy-one families', body: 'We name the karigar on every order card. They are paid per piece, not per hour.' },
-  { Icon: IconRuler,  title: 'Made to measure, standard', body: 'Twelve measurements, no surcharge. Standard sizing is available if you prefer it.' },
+  { Icon: IconRuler,  title: 'Made to measure, standard', body: 'Nine measurements, no surcharge. Chest sizing is available if you prefer it.' },
   { Icon: IconTruck,  title: 'Shipped in muslin, worldwide', body: 'Every piece travels in a hand-stitched bag. Free above ₹25,000.' },
   { Icon: IconReturn, title: 'Thirty days to change your mind', body: 'Unworn, tags on. Made-to-measure pieces are altered free instead.' },
   { Icon: IconLeaf,   title: 'Natural fibres only', body: 'Silk, cotton, wool, linen. No polyester, including in the linings.' },
