@@ -3,6 +3,7 @@
 
 export const IMAGE_WIDTHS: Record<string, number[]> = {
   '/Sections/HOMES1': [640, 960, 1280, 1536],
+  '/Sections/HOMES2': [640, 960, 1280, 1536],
   '/hero/H1': [640, 960, 1440],
   '/hero/H2': [640, 960, 1440],
   '/hero/H3': [640, 960, 1440],

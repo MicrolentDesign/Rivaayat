@@ -20,4 +20,7 @@ dist
 # generated image derivatives — rebuilt from media/ by npm run images
 /public/hero/
 /public/product/
+/public/category/
+/public/Sections/
+/public/sections/
 /public/images.json

@@ -69,7 +69,8 @@ export function HomePage() {
       <Countdown />
 
       <EditorialSplit
-        image="/img/atelier.svg"
+        base="/Sections/HOMES2"
+        alt="Two artisans at a wooden embroidery frame in the atelier"
         eyebrow="Inside the atelier"
         title="Seventy-one families, eight states, one order card."
         body={[
