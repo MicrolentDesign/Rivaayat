@@ -181,7 +181,10 @@ for (const group of [products, wide, tiles, squares]) {
   }
 }
 
-// Favicon + wordmark seal
-writeFileSync(new URL('../favicon.svg', OUT), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="${P.ink}"/><text x="32" y="43" text-anchor="middle" font-family="Georgia,serif" font-size="34" fill="${P.bone}">R</text></svg>`);
+/* Favicon. Kept here so regenerating the art cannot silently revert it —
+   it uses the brand green and the wordmark's own serif stack, matching
+   public/logo/. Emoji-free, single glyph, legible at 16px. */
+const BRAND = '#0B2312';
+writeFileSync(new URL('../favicon.svg', OUT), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Rivaayat"><rect width="64" height="64" fill="${BRAND}"/><text x="32" y="45" text-anchor="middle" fill="#FAF8F4" font-family="'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif" font-size="40" font-weight="400" letter-spacing="1">R</text></svg>`);
 
 console.log(`Generated ${count} artwork files + favicon into public/img/`);
